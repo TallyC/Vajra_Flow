@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金剛經每日背誦卡 — 法義與梵文升級版</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 24, 30, 0.7);
+            --card-border: rgba(212, 175, 55, 0.2);
+            --card-border-active: rgba(212, 175, 55, 0.6);
+            --text-main: #f0f2f5;
+            --text-muted: #a0a5b5;
+            --accent-gold: #d4af37;
+            --accent-gold-hover: #f3e5ab;
+            --accent-gold-rgb: 212, 175, 55;
+            --success: #2ec4b6;
+            --glass-blur: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #faf6ee;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(184, 134, 11, 0.2);
+            --card-border-active: rgba(184, 134, 11, 0.6);
+            --text-main: #2c2518;
+            --text-muted: #70685c;
+            --accent-gold: #8b6508;
+            --accent-gold-hover: #b8860b;
+            --accent-gold-rgb: 139, 101, 8;
+            --success: #008080;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', 'Noto Serif TC', 'BiauKai', 'Kaiti', serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem 1rem;
+            transition: var(--transition);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(var(--accent-gold-rgb), 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(var(--accent-gold-rgb), 0.03) 0%, transparent 40%);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        /* Dashboard & Stats */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-val {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-gold);
+            border-radius: 3px;
+            transition: width 0.5s ease-out;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Card Container with Perspective for Flip */
+        .card-perspective {
+            perspective: 1000px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        /* The Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            min-height: 380px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(var(--glass-blur));
+            position: relative;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 20px 50px rgba(var(--accent-gold-rgb), 0.15);
+        }
+
+        /* Card Headers */
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(var(--accent-gold-rgb), 0.15);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-division {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
+
+        .card-number {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+        }
+
+        /* Card Body (Main Text) */
+        .card-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: justify;
+            line-height: 2.2;
+            font-size: 1.55rem;
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 0.1em;
+            word-break: break-all;
+            transition: var(--transition);
+        }
+
+        /* Memorize helpers */
+        .hidden-word {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            color: transparent;
+            border-bottom: 2px solid var(--accent-gold);
+            cursor: pointer;
+            padding: 0 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .hidden-word:hover, .hidden-word.revealed {
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .blur-active .card-body-text {
+            filter: blur(8px);
+            user-select: none;
+            opacity: 0.3;
+        }
+
+        .card-body-text {
+            transition: filter 0.3s ease, opacity 0.3s ease;
+            width: 100%;
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .blur-active .blur-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .blur-text {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border: 1px dashed var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Card Footer */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(var(--accent-gold-rgb), 0.1);
+        }
+
+        .word-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .card-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .card-status input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        .card-status:hover {
+            color: var(--accent-gold);
+        }
+
+        .card.memorized {
+            border-color: var(--success);
+        }
+        
+        .card.memorized .card-status {
+            color: var(--success);
+        }
+
+        /* Actions & Navigation */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            backdrop-filter: blur(var(--glass-blur));
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(var(--accent-gold-rgb), 0.15);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-gold {
+            background: var(--accent-gold);
+            color: #0b0c10 !important;
+            border-color: var(--accent-gold);
+        }
+
+        .btn-gold:hover:not(:disabled) {
+            background: var(--accent-gold-hover);
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 4px 20px rgba(var(--accent-gold-rgb), 0.4) !important;
+        }
+
+        /* Quick Jumper & Helper tools */
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            justify-content: center;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .tool-btn {
+            background: rgba(var(--accent-gold-rgb), 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tool-btn:hover, .tool-btn.active {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .jumper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .jumper select {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .jumper select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* Theme & Utilities */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(var(--glass-blur));
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Keyboard Shortcut Guide */
+        .shortcuts {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .shortcut-key {
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+            border-radius: 4px;
+            padding: 0.1rem 0.4rem;
+            color: var(--accent-gold);
+            font-family: monospace;
+            margin: 0 0.15rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .card {
+                padding: 1.5rem;
+                min-height: 320px;
+            }
+            .card-body {
+                font-size: 1.3rem;
+                line-height: 2.0;
+            }
+            .controls {
+                gap: 0.5rem;
+            }
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .tools {
+                padding: 0.8rem 0.5rem;
+                gap: 0.5rem;
+            }
+            .tool-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* --- 同步功能專用樣式 --- */
+        .sync-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+        [data-theme="light"] .sync-modal-overlay {
+            background: rgba(250, 246, 238, 0.85);
+        }
+        .sync-modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border-active);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .sync-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+            padding-bottom: 0.75rem;
+        }
+        .sync-modal-header h3 {
+            color: var(--accent-gold);
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+        }
+        .sync-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+        .sync-close-btn:hover {
+            color: var(--accent-gold);
+        }
+        .sync-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+        [data-theme="light"] .sync-tabs {
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+        .sync-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .sync-tab-btn:hover, .sync-tab-btn.active {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+        .sync-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .sync-tab-content.active {
+            display: block;
+        }
+        .sync-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+        }
+        .sync-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .sync-input-group input {
+            flex: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .sync-input-group input:focus {
+            border-color: var(--accent-gold);
+        }
+        .sync-section-title {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+        .sync-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 1.5rem 0;
+        }
+        [data-theme="light"] .sync-divider {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .toast-tip {
+            font-size: 0.8rem;
+            color: var(--success);
+            margin-top: 0.3rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .sync-prompt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        [data-theme="light"] .sync-prompt-overlay {
+            background: rgba(250, 246, 238, 0.85);
+        }
+        .sync-prompt-card {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .sync-prompt-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+        }
+        .sync-prompt-card p {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .sync-prompt-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .prompt-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .prompt-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .prompt-btn.btn-gold {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #0b0c10 !important;
+        }
+        .prompt-btn.btn-gold:hover {
+            background: var(--accent-gold-hover);
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 4px 15px rgba(var(--accent-gold-rgb), 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggle" title="切換主題" aria-label="切換主題">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+
+    <header>
+        <h1>金剛般若波羅蜜經</h1>
+        <div style="font-size: 0.8rem; background: rgba(214, 175, 55, 0.1); color: #d4af37; padding: 0.25rem 0.75rem; border-radius: 20px; display: inline-block; margin-top: 0.25rem;">法義、梵文與修行資源升級版</div>
+        <div class="subtitle">江味農居士校定本 · 每日背誦卡</div>
+    </header>
+
+    <!-- Stats Dashboard -->
+    <section class="dashboard">
+        <div class="stat-item">
+            <div class="stat-val" id="totalCards">0</div>
+            <div class="stat-lbl">總卡數</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-val" id="memorizedCount">0</div>
+            <div class="stat-lbl">已背誦</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-val" id="progressPct">0%</div>
+            <div class="stat-lbl">背誦進度</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </section>
+
+    <!-- Card Wrapper -->
+    <main class="container">
+        <div class="card-perspective">
+            <div class="card" id="mainCard">
+                <div class="card-meta">
+                    <span class="card-division" id="cardDivision">法會因由分第一</span>
+                    <span class="card-number" id="cardNumber">1 / 61</span>
+                </div>
+                
+                <div class="card-body" id="cardBody">
+                    <div class="blur-overlay" id="blurOverlay">
+                        <span class="blur-text">點擊或按下 [空白鍵] 顯示經文</span>
+                    </div>
+                    <div class="card-body-text" id="cardBodyText">
+                        經文載入中...
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <span class="word-count" id="wordCount">字數: 0 字</span>
+                    <label class="card-status">
+                        <input type="checkbox" id="statusCheckbox">
+                        <span id="statusText">標記為已背誦</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Dharma Modal -->
+        <div id="dharmaModal" class="sync-modal-overlay" style="display: none;">
+            <div class="sync-modal-card">
+                <div class="sync-modal-header">
+                    <h3 id="dharmaTitle">📖 法義與梵文</h3>
+                    <button class="sync-close-btn" id="dharmaCloseBtn">&times;</button>
+                </div>
+                <div class="sync-tab-content active">
+                    <div class="sync-section-title">【法義說明】</div>
+                    <p class="sync-desc" id="dharmaDesc" style="font-size: 0.95rem; color: var(--text-main); line-height: 1.8; margin-bottom: 1.5rem; text-align: justify;"></p>
+                    
+                    <div class="sync-section-title">【關鍵梵文對照】</div>
+                    <p class="sync-desc" id="dharmaSanskrit" style="font-size: 0.9rem; color: var(--accent-gold); line-height: 1.6; margin-bottom: 1.5rem;"></p>
+                    
+                    <div class="sync-divider"></div>
+                    
+                    <div class="sync-section-title">【法鼓山修行資源】</div>
+                    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+                        <a href="https://www.ddm.org.tw" target="_blank" class="nav-btn" style="text-decoration: none; justify-content: center; font-size: 0.85rem; padding: 0.5rem 1rem;">
+                            ☸️ 法鼓山全球資訊網
+                        </a>
+                        <a href="https://www.youtube.com/results?search_query=%E8%81%96%E5%9A%B4%E6%B3%95%E5%B8%AB+%E9%87%91%E5%85%8B%E7%B6%93" target="_blank" class="nav-btn btn-gold" style="text-decoration: none; justify-content: center; font-size: 0.85rem; padding: 0.5rem 1rem; color: #0b0c10 !important;">
+                            📺 聖嚴法師《金剛經》講經講座
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync Modal -->
+        <div id="syncModal" class="sync-modal-overlay" style="display: none;">
+            <div class="sync-modal-card">
+                <div class="sync-modal-header">
+                    <h3>🔄 雙端背誦進度同步</h3>
+                    <button class="sync-close-btn" id="syncCloseBtn">&times;</button>
+                </div>
+                
+                <div class="sync-tabs">
+                    <button class="sync-tab-btn active" data-tab="qrTab">手機掃碼</button>
+                    <button class="sync-tab-btn" data-tab="linkTab">傳送連結</button>
+                    <button class="sync-tab-btn" data-tab="manualTab">手動同步碼</button>
+                </div>
+                
+                <div class="sync-tab-content active" id="qrTab">
+                    <p class="sync-desc">用手機掃描下方二維碼，即可在手機上開啟背誦小卡並<strong>自動合併</strong>您目前的背誦進度。</p>
+                    <div class="qr-container">
+                        <img id="qrCodeImg" src="" alt="同步二維碼載入中...">
+                    </div>
+                </div>
+                
+                <div class="sync-tab-content" id="linkTab">
+                    <p class="sync-desc">複製下方專屬連結，傳送給手機或另一台裝置開啟，即可進行進度合併：</p>
+                    <div class="sync-input-group">
+                        <input type="text" id="syncLinkInput" readonly>
+                        <button class="nav-btn btn-gold" id="copyLinkBtn">複製連結</button>
+                    </div>
+                    <div id="copyLinkToast" class="toast-tip" style="display: none;">✓ 連結已複製，可傳送至手機開啟！</div>
+                </div>
+                
+                <div class="sync-tab-content" id="manualTab">
+                    <p class="sync-desc">若兩端皆無法上網或掃碼，可手動複製此機同步碼，並在另一台裝置貼入：</p>
+                    <div class="sync-section-title">此裝置同步碼 (已背誦卡片序號)</div>
+                    <div class="sync-input-group">
+                        <input type="text" id="mySyncCodeInput" readonly>
+                        <button class="nav-btn btn-gold" id="copyCodeBtn">複製</button>
+                    </div>
+                    <div id="copyCodeToast" class="toast-tip" style="display: none;">✓ 同步碼已複製！</div>
+                    
+                    <div class="sync-divider"></div>
+                    
+                    <div class="sync-section-title">輸入另一台裝置的同步碼</div>
+                    <div class="sync-input-group">
+                        <input type="text" id="importCodeInput" placeholder="例如: 1,2,5,12">
+                        <button class="nav-btn btn-gold" id="importCodeBtn">匯入並合併</button>
+                    </div>
+                    <div id="importSuccessToast" class="toast-tip" style="display: none;">✓ 進度已成功合併！</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Sync Prompt Overlay -->
+        <div id="syncPromptOverlay" class="sync-prompt-overlay" style="display: none;">
+            <div class="sync-prompt-card">
+                <h3>🔄 偵測到同步進度</h3>
+                <p id="syncPromptText">有來自其他裝置的已背誦卡片進度，是否與此裝置合併？</p>
+                <div class="sync-prompt-btns">
+                    <button class="prompt-btn btn-gold" id="syncMergeBtn">合併進度</button>
+                    <button class="prompt-btn" id="syncCancelBtn">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <section class="controls">
+            <button class="nav-btn" id="prevBtn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                上一卡
+            </button>
+            <button class="nav-btn btn-gold" id="nextBtn">
+                下一卡
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </section>
+
+        <!-- Toolbars -->
+        <section class="tools">
+            <button class="tool-btn" id="bellBtn" title="敲引磬鐘聲">
+                🔔 磬聲
+            </button>
+            <button class="tool-btn" id="blurBtn" title="遮蔽經文以測試背誦">
+                👁️ 遮蔽
+            </button>
+            <button class="tool-btn" id="clozeBtn" title="挖空隨機字詞">
+                🧩 挖空
+            </button>
+            <button class="tool-btn" id="syncBtn" title="同步背誦進度至手機或其他裝置">
+                🔄 同步進度
+            </button>
+            <button class="tool-btn" id="dharmaBtn" title="顯示當前章節的法義說明、梵文對照與法鼓山資源">
+                📖 法義說明
+            </button>
+            
+            <div class="jumper">
+                <span>跳轉分會:</span>
+                <select id="divisionSelect">
+                    <!-- Dynamic divisions -->
+                </select>
+            </div>
+        </section>
+
+        <!-- Keyboard Shortcuts -->
+        <footer class="shortcuts">
+            鍵盤快捷鍵：
+            <span class="shortcut-key">←</span> 上一卡 &nbsp;
+            <span class="shortcut-key">→</span> 下一卡 &nbsp;
+            <span class="shortcut-key">Space</span> 遮蔽/顯示 &nbsp;
+            <span class="shortcut-key">M</span> 標記/取消已背誦 &nbsp;
+            <span class="shortcut-key">C</span> 隨機挖空 &nbsp;
+            <span class="shortcut-key">B</span> 磬聲 &nbsp;
+        </footer>
+    </main>
+
+    <script>
+        // Embed the database
+        const cardsData = [{"id":1,"division":"法會因由分第一","part":"1/1","text":"如是我聞。一時，佛在舍衛國祇樹給孤獨園。與大比丘眾千二百五十五人俱。爾時，世尊食時，著衣持缽，入舍衛大城乞食。於其城中，次第乞已，還至本處。飯食訖，收衣缽，洗足已，敷座而坐。","length":87,"isBalanced":true},{"id":2,"division":"善現啟請分第二","part":"1/2","text":"時長老須菩提，在大眾中，即從座起，偏袒右肩，右膝著地，合掌恭敬而白佛言：「希有，世尊！如來善護念諸菩薩，善付囑諸菩薩。」「世尊！善男子、善女人，發阿耨多羅三藐三菩提心，應云何住？云何降伏其心？」","length":97,"isBalanced":true},{"id":3,"division":"善現啟請分第二","part":"2/2","text":"佛言：「善哉善哉。須菩提，如汝所說，如來善護念諸菩薩，善付囑諸菩薩。」「汝今諦聽，當為汝說。善男子、善女人，發阿耨多羅三藐三菩提心，應如是住，如是降伏其心。」「唯然，世尊！願樂欲聞。」","length":92,"isBalanced":true},{"id":4,"division":"大乘正宗分第三","part":"1/1","text":"佛告須菩提：「諸菩薩摩訶薩，應如是降伏其心。」「所有一切眾生之類，若卵生、若胎生、若溼生、若化生，若有色、若無色、若有想、若無想、若非有想非無想，我皆令入無餘涅槃而滅度之。如是滅度無量無數無邊眾生，實無眾生得滅度者。」「何以故？須菩提！若菩薩有我相人相眾生相壽者相，即非菩薩。」","length":139,"isBalanced":true},{"id":5,"division":"妙行無住分第四","part":"1/2","text":"「複次，須菩提！菩薩於法，應無所住，行於布施。」「所謂不住色布施，不住聲香味觸法布施。」「須菩提！菩薩應如是布施，不住於相。」「何以故？若菩薩不住相布施，其福德不可思量。」","length":86,"isBalanced":true},{"id":6,"division":"妙行無住分第四","part":"2/2","text":"「須菩提！於意云何？東方虛空可思量不？」「不也，世尊！」「須菩提！南西北方四維上下虛空可思量不？」「不也，世尊！」「須菩提！菩薩無住相布施，福德亦復如是不可思量。」「須菩提！菩薩但應如所教住。」","length":97,"isBalanced":true},{"id":7,"division":"如理實見分第五","part":"1/1","text":"「須菩提！於意云何？可以身相見如來不？」「不也，世尊！不可，以身相得見如來。」「何以故？如來所說身相，即非身相。」佛告須菩提：「凡所有相，皆是虛妄。」「若見諸相非相，則見如來。」","length":89,"isBalanced":true},{"id":8,"division":"正信希有分第六","part":"1/3","text":"須菩提白佛言：「世尊！頗有眾生，得聞如是言說章句，生實信不？」佛告須菩提：「莫作是說。如來滅後，後五百歲，有持戒修福者，於此章句，能生信心，以此為實。」","length":76,"isBalanced":true},{"id":9,"division":"正信希有分第六","part":"2/3","text":"「當知是人，不於一佛二佛三四五佛而種善根，已於無量千萬佛所，種諸善根。」「聞是章句，乃至一念生淨信者。須菩提！如來悉知悉見，是諸眾生，得如是無量福德。」「何以故？是諸眾生，無復我相人相眾生相壽者相。無法相，亦無非法相。」","length":110,"isBalanced":true},{"id":10,"division":"正信希有分第六","part":"3/3","text":"「何以故？是諸眾生，若心取相，則為著我人眾生壽者。若取法相，即著我人眾生壽者。何以故？若取非法相，即著我人眾生壽者。」「是故不應取法，不應取非法。」「以是義故，如來常說：汝等比丘，知我說法，如筏喻者。法尚應舍，何況非法。」","length":111,"isBalanced":true},{"id":11,"division":"無得無說分第七","part":"1/1","text":"「須菩提！於意云何？如來得阿耨多羅三藐三菩提耶？如來有所說法耶？」須菩提言：「如我解佛所說義，無有定法，名阿耨多羅三藐三菩提；亦無有定法，如來可說。」「何以故？如來所說法，皆不可取，不可說，非法，非非法。」「所以者何？一切賢聖，皆以無為法而有差別。」","length":125,"isBalanced":true},{"id":12,"division":"依法出生分第八","part":"1/2","text":"「須菩提！於意云何？若人滿三千大千世界七寶以用布施，是人所得福德，寧為多不？」須菩提言：「甚多，世尊！何以故？是福德，即非福德性，是故如來說福德多。」","length":75,"isBalanced":true},{"id":13,"division":"依法出生分第八","part":"2/2","text":"「若復有人，於此經中，受持乃至四句偈等，為他人說，其福勝彼。」「何以故？須菩提！一切諸佛，及諸佛阿耨多羅三藐三菩提法，皆從此經出。」「須菩提！所謂佛法者，即非佛法。」","length":83,"isBalanced":true},{"id":14,"division":"一相無相分第九","part":"1/4","text":"「須菩提！於意云何？須陀洹能作是念，我得須陀洹果不？」須菩提言：「不也，世尊！何以故？須陀洹名為入流，而無所入，不入色聲香味觸法，是名須陀洹。」「須菩提！於意云何？斯陀含能作是念，我得斯陀含果不？」","length":99,"isBalanced":true},{"id":15,"division":"一相無相分第九","part":"2/4","text":"須菩提言：「不也，世尊！何以故？斯陀含名一往來，而實無往來，是名斯陀含。」「須菩提！於意云何？阿那含能作是念，我得阿那含果不？」須菩提言：「不也，世尊！何以故？阿那含名為不來，而實無來，是故名阿那含。」","length":101,"isBalanced":true},{"id":16,"division":"一相無相分第九","part":"3/4","text":"「須菩提！於意云何？阿羅漢能作是念，我得阿羅漢道不？」須菩提言：「不也，世尊！何以故？實無有法，名阿羅漢。世尊！若阿羅漢作是念，我得阿羅漢道，即為著我人眾生壽者。」","length":82,"isBalanced":true},{"id":17,"division":"一相無相分第九","part":"4/4","text":"「世尊！佛說我得無諍三昧，人中最為第一，是第一離欲阿羅漢。」「我不作是念，我是離欲阿羅漢。」「世尊！我若作是念，我得阿羅漢道，世尊則不說須菩提是樂阿蘭那行者。」「以須菩提實無所行，而名須菩提是樂阿蘭那行。」","length":103,"isBalanced":true},{"id":18,"division":"莊嚴淨土分第十","part":"1/2","text":"佛告須菩提：「於意云何？如來昔在然燈佛所，於法有所得不？」「世尊！如來在然燈佛所，於法實無所得。」「須菩提！於意云何？菩薩莊嚴佛土不？」「不也，世尊！何以故？莊嚴佛土者，則非莊嚴，是名莊嚴。」","length":96,"isBalanced":true},{"id":19,"division":"莊嚴淨土分第十","part":"2/2","text":"「是故須菩提！諸菩薩摩訶薩，應如是生清淨心。不應住色生心，不應住聲香味觸法生心，應無所住而生其心。」「須菩提！譬如有人，身如須彌山王。於意云何？是身為大不？」須菩提言：「甚大，世尊！何以故？佛說非身，是名大身。」","length":106,"isBalanced":true},{"id":20,"division":"無為福勝分第十一","part":"1/2","text":"「須菩提。如恆河中所有沙數，如是沙等恆河，於意云何？是諸恆河沙，寧為多不？」須菩提言：「甚多，世尊！但諸恆河，尚多無數，何況其沙。」","length":66,"isBalanced":true},{"id":21,"division":"無為福勝分第十一","part":"2/2","text":"「須菩提！我今實言告汝，若有善男子、善女人，以七寶滿爾所恆河沙數三千大千世界，以用布施，得福多不？」須菩提言：「甚多，世尊！」佛告須菩提：「若善男子、善女人，於此經中，乃至受持四句偈等，為他人說，而此福德，勝前福德。」","length":109,"isBalanced":true},{"id":22,"division":"尊重正教分第十二","part":"1/1","text":"「複次，須菩提！隨說是經，乃至四句偈等，當知此處，一切世間天人阿修羅，皆應供養，如佛塔廟。」「何況有人盡能受持讀誦。」「須菩提！當知是人，成就最上第一希有之法。」「若是經典所在之處，則為有佛，若尊重弟子。」","length":103,"isBalanced":true},{"id":23,"division":"如法受持分第十三","part":"1/3","text":"爾時，須菩提白佛言：「世尊！當何名此經？我等云何奉持？」佛告須菩提：「是經名為金剛般若波羅蜜。」「以是名字，汝當奉持。」「所以者何？」「須菩提！佛說般若波羅蜜，則非般若波羅蜜。」「須菩提！於意云何？如來有所說法不？」","length":108,"isBalanced":true},{"id":24,"division":"如法受持分第十三","part":"2/3","text":"須菩提白佛言：「世尊！如來無所說。」「須菩提！於意云何？三千大千世界所有微塵，是為多不？」須菩提言：「甚多，世尊！」「須菩提！諸微塵，如來說非微塵，是名微塵。」「如來說：世界，非世界，是名世界。」","length":98,"isBalanced":true},{"id":25,"division":"如法受持分第十三","part":"3/3","text":"「須菩提，於意云何？可以三十二相見如來不？」「不也，世尊！何以故？如來說三十二相，即是非相，是名三十二相。」「須菩提！若有善男子、善女人，以恆河沙等身命布施。」「若復有人，於此經中，乃至受持四句偈等，為他人說，其福甚多。」","length":111,"isBalanced":true},{"id":26,"division":"離相寂滅分第十四","part":"1/7","text":"爾時須菩提聞說是經，深解義趣，涕淚悲泣，而白佛言：「希有！世尊！佛說如是甚深經典，我從昔來所得慧眼，未曾得聞如是之經。」「世尊！若復有人得聞是經，信心清淨，則生實相，當知是人，成就第一希有功德。」","length":98,"isBalanced":true},{"id":27,"division":"離相寂滅分第十四","part":"2/7","text":"「世尊！是實相者，則是非相，是故如來說名實相。」「世尊！我今得聞如是經典，信解受持，不足為難。」「若當來世，後五百歲。其有眾生，得聞是經，信解受持，是人則為第一希有。」「何以故？此人無我相、人相、眾生相、壽者相。」","length":107,"isBalanced":true},{"id":28,"division":"離相寂滅分第十四","part":"3/7","text":"「所以者何？我相即是非相，人相、眾生相、壽者相，即是非相。」「何以故？離一切諸相，則名諸佛。」佛告須菩提：「如是，如是。若復有人，得聞是經，不驚不怖不畏，當知是人，甚為希有。」「何以故？須菩提！如來說第一波羅蜜，非第一波羅蜜，是名第一波羅蜜。」","length":122,"isBalanced":true},{"id":29,"division":"離相寂滅分第十四","part":"4/7","text":"「須菩提！忍辱波羅密，如來說非忍辱波羅蜜。」「何以故？須菩提！如我昔為歌利王割截身體。我於爾時，無我相、無人相、無眾生相、無壽者相。何以故？我於往昔節節支解時，若有我相人相眾生相壽者相，應生瞋恨。」","length":99,"isBalanced":true},{"id":30,"division":"離相寂滅分第十四","part":"5/7","text":"「須菩提！又念過去於五百世，作忍辱仙人。於爾所世，無我相，無人相，無眾生相，無壽者相。」「是故須菩提！菩薩應離一切相，發阿耨多羅三藐三菩提心。」「不應住色生心，不應住聲香味觸法生心，應生無所住心。」「若心有住，則為非住。」","length":111,"isBalanced":true},{"id":31,"division":"離相寂滅分第十四","part":"6/7","text":"「是故，佛說菩薩心不應住色布施。」「須菩提！菩薩為利益一切眾生，應如是布施。」「如來說：一切諸相，即是非相；又說：一切眾生，則非眾生。」「須菩提！如來是真語者，實語者，如語者，不誑語者，不異語者。」「須菩提！如來所得法。此法無實無虛。」","length":118,"isBalanced":true},{"id":32,"division":"離相寂滅分第十四","part":"7/7","text":"「須菩提！若菩薩心住於法而行布施，如人入暗，則無所見。」「若菩薩心不住法而行布施，如人有目，日光明照，見種種色。」「須菩提！當來之世，若有善男子、善女人，能於此經受持讀誦，則為如來以佛智慧，悉知是人，悉見是人，皆得成就無量無邊功德。」","length":117,"isBalanced":true},{"id":33,"division":"持經功德分第十五","part":"1/3","text":"「須菩提！若有善男子、善女人，初日分，以恆河沙等身布施；中日分，復以恆河沙等身布施；後日分，亦以恆河沙等身布施。如是無量百千萬億劫，以身布施。」「若復有人，聞此經典，信心不逆，其福勝彼。」「何況書寫，受持讀誦，為人解說。」","length":111,"isBalanced":true},{"id":34,"division":"持經功德分第十五","part":"2/3","text":"「須菩提！以要言之，是經有不可思議，不可稱量，無邊功德。」「如來為發大乘者說，為發最上乘者說。」「若有人能受持讀誦，廣為人說，如來悉知是人，悉見是人，皆成就不可量，不可稱，無有邊，不可思議功德。如是人等，則為荷擔如來阿耨多羅三藐三菩提。」","length":119,"isBalanced":true},{"id":35,"division":"持經功德分第十五","part":"3/3","text":"「何以故？須菩提！若樂小法者，著我見人見眾生見壽者見，則於此經不能聽受讀誦，為人解說。」「須菩提！在在處處，若有此經，一切世間天人阿修羅，所應供養。當知此處，則為是塔。皆應恭敬，作禮圍繞，以諸華香而散其處。」","length":104,"isBalanced":true},{"id":36,"division":"能淨業障分第十六","part":"1/3","text":"「複次，須菩提！善男子、善女人，受持讀誦此經，若為人輕賤，是人先世罪業，應墮惡道。」「以今世人輕賤故，先世罪業則為消滅，當得阿耨多羅三藐三菩提。」","length":73,"isBalanced":true},{"id":37,"division":"能淨業障分第十六","part":"2/3","text":"「須菩提！我念過去無量阿僧祇劫，於然燈佛前，得值八百四千萬億那由他諸佛，悉皆供養承事，無空過者。」「若復有人，於後末世，能受持讀誦此經，所得功德，於我所供養諸佛功德，百分不及一，千萬億分，乃至算數譬喻所不能及。」","length":106,"isBalanced":true},{"id":38,"division":"能淨業障分第十六","part":"3/3","text":"「須菩提！若善男子、善女人，於後末世，有受持讀誦此經，所得功德，我若具說者。或有人聞，心則狂亂，狐疑不信。」「須菩提！當知是經義不可思議，果報亦不可思議。」","length":78,"isBalanced":true},{"id":39,"division":"究竟無我分第十七","part":"1/6","text":"爾時，須菩提白佛言：「世尊！善男子、善女人，發阿耨多羅三藐三菩提心，云何應住？云何降伏其心？」佛告須菩提：「善男子、善女人，發阿耨多羅三藐三菩提者，當生如是心，我應滅度一切眾生，滅度一切眾生已，而無有一眾生實滅度者。」","length":109,"isBalanced":true},{"id":40,"division":"究竟無我分第十七","part":"2/6","text":"「何以故？若菩薩有我相人相眾生相壽者相，則非菩薩。」「所以者何？須菩提！實無有法發阿耨多羅三藐三菩提者。」「須菩提！於意云何？如來於然燈佛所，有法得阿耨多羅三藐三菩提不？」","length":86,"isBalanced":true},{"id":41,"division":"究竟無我分第十七","part":"3/6","text":"「不也，世尊！如我解佛所說義，佛於然燈佛所，無有法得阿耨多羅三藐三菩提。」佛言：「如是，如是。須菩提！實無有法如來得阿耨多羅三藐三菩提。」「須菩提！若有法如來得阿耨多羅三藐三菩提，然燈佛則不與我授記：汝於來世，當得作佛，號釋迦牟尼。」","length":117,"isBalanced":true},{"id":42,"division":"究竟無我分第十七","part":"4/6","text":"「以實無有法得阿耨多羅三藐三菩提，是故然燈佛與我授記，作是言：『汝於來世，當得作佛，號釋迦牟尼。』」「何以故？如來者，即諸法如義。」「若有人言，如來得阿耨多羅三藐三菩提。須菩提！實無有法，佛得阿耨多羅三藐三菩提。」","length":107,"isBalanced":true},{"id":43,"division":"究竟無我分第十七","part":"5/6","text":"「須菩提！如來所得阿耨多羅三藐三菩提，於是中無實無虛。」「須菩提！所言一切法者，即非一切法，是故名一切法。」「須菩提！譬如人身長大。」須菩提言：「世尊！如來說，人身長大，則為非大身，是名大身。」「須菩提！菩薩亦如是。若作是言，我當滅度無量眾生，則不名菩薩。」","length":129,"isBalanced":true},{"id":44,"division":"究竟無我分第十七","part":"6/6","text":"「何以故？須菩提！無有法名為菩薩。」「是故佛說一切法無我無人無眾生無壽者。」「須菩提！若菩薩作是言：我當莊嚴佛土。是不名菩薩。」「何以故？如來說：莊嚴佛土者，即非莊嚴，是名莊嚴。」「須菩提！若菩薩通達無我法者，如來說名真是菩薩。」","length":115,"isBalanced":true},{"id":45,"division":"一體同觀分第十八","part":"1/3","text":"「須菩提！於意云何？如來有肉眼不？」「如是，世尊！如來有肉眼。」「須菩提！於意云何？如來有天眼不？」「如是，世尊！如來有天眼。」「須菩提！於意云何？如來有慧眼不？」「如是，世尊！如來有慧眼。」「須菩提！於意云何？如來有法眼不？」「如是，世尊！如來有法眼。」","length":128,"isBalanced":true},{"id":46,"division":"一體同觀分第十八","part":"2/3","text":"「須菩提！於意云何？如來有佛眼不？」「如是，世尊！如來有佛眼。」「須菩提，於意云何？恆河中所有沙，佛說是沙不？」「如是，世尊！如來說是沙。」「須菩提！於意云何？如一恆河中所有沙，有如是等恆河，是諸恆河所有沙數佛世界如是，寧為多不？」","length":116,"isBalanced":true},{"id":47,"division":"一體同觀分第十八","part":"3/3","text":"「甚多，世尊！」佛告須菩提：「爾所國土中，所有眾生，若干種心，如來悉知。」「何以故？如來說諸心皆為非心，是名為心。」「所以者何？須菩提！過去心不可得，現在心不可得，未來心不可得。」","length":90,"isBalanced":true},{"id":48,"division":"法界通化分第十九","part":"1/1","text":"「須菩提！於意云何？若有人滿三千大千世界七寶，以用布施。是人以是因緣，得福多不？」「如是，世尊！此人以是因緣，得福甚多。」「須菩提！若福德有實，如來不說得福德多。以福德無故，如來說得福德多。」","length":96,"isBalanced":true},{"id":49,"division":"離色離相分第二十","part":"1/1","text":"「須菩提！於意云何？佛可以具足色身見不？」「不也，世尊！如來不應以色身見。何以故？如來說具足色身，即非具足色身，是名具足色身。」「須菩提！於意云何？如來可以具足諸相見不？」「不也，世尊！如來不應以具足諸相見。何以故？如來說諸相具足，即非具足，是名諸相具足。」","length":129,"isBalanced":true},{"id":50,"division":"非說所說分第二十一","part":"1/2","text":"「須菩提！汝勿謂如來作是念，我當有所說法，莫作是念。」「何以故？若人言如來有所說法，即為謗佛。不能解我所說故。」「須菩提！說法者無法可說，是名說法。」","length":75,"isBalanced":true},{"id":51,"division":"非說所說分第二十一","part":"2/2","text":"爾時，慧命須菩提白佛言：「世尊！頗有眾生，於未來世，聞說是法，生信心不？」佛言：「須菩提！彼非眾生，非不眾生。」「何以故？須菩提！眾生眾生者，如來說非眾生，是名眾生。」","length":84,"isBalanced":true},{"id":52,"division":"無法可得分第二十二","part":"1/1","text":"須菩提白佛言：「世尊！佛得阿耨多羅三藐三菩提，為無所得耶？」「如是，如是！須菩提！我於阿耨多羅三藐三菩提，乃至無有少法可得，是名阿耨多羅三藐三菩提。」","length":75,"isBalanced":true},{"id":53,"division":"淨心行善分第二十三","part":"1/1","text":"「複次，須菩提！是法平等，無有高下。是名阿耨多羅三藐三菩提。」「以無我無人無眾生無壽者，修一切善法，則得阿耨多羅三藐三菩提。」「須菩提！所言善法者，如來說非善法，是名善法。」","length":87,"isBalanced":true},{"id":54,"division":"福智無比分第二十四","part":"1/1","text":"「須菩提！若三千大千世界中所有諸須彌山王，如是等七寶聚，有人持用布施。」「若人以此般若波羅蜜經，乃至四句偈等，受持，為他人說。於前福德，百分不及一。百千萬億分，乃至算數譬喻所不能及。」","length":92,"isBalanced":true},{"id":55,"division":"化無所化分第二十五","part":"1/1","text":"「須菩提！於意云何？汝等勿謂如來作是念，我當度眾生。須菩提！莫作是念。」「何以故？實無有眾生如來度者。若有眾生如來度者，如來則有我人眾生壽者。」「須菩提！如來說有我者，則非有我。而凡夫之人，以為有我。須菩提！凡夫者，如來說則非凡夫。」","length":117,"isBalanced":true},{"id":56,"division":"法身非相分第二十六","part":"1/1","text":"「須菩提！於意云何？可以三十二相觀如來不？」須菩提言：「如是如是以三十二相觀如來。」佛言：「須菩提！若以三十二相觀如來者，轉輪聖王則是如來。」須菩提白佛言：「世尊！如我解佛所說義，不應以三十二相觀如來。」爾時，世尊而說偈言：「若以色見我，以音聲求我，是人行邪道，不能見如來。」","length":138,"isBalanced":true},{"id":57,"division":"無斷無滅分第二十七","part":"1/1","text":"「須菩提！汝若作是念，如來不以具足相故，得阿耨多羅三藐三菩提。須菩提！莫作是念：如來不以具足相故，得阿耨多羅三藐三菩提。」「須菩提！汝若作是念，發阿耨多羅三藐三菩提者，說諸法斷滅。莫作是念，何以故？發阿耨多羅三藐三菩提者，於法不說斷滅相。」","length":120,"isBalanced":true},{"id":58,"division":"不受不貪分第二十八","part":"1/1","text":"「須菩提！若菩薩以滿恆河沙等世界七寶布施；」「若復有人，知一切法無我，得成於忍，此菩薩勝前菩薩所得功德。」「須菩提！以諸菩薩不受福德故。」須菩提白佛言：「世尊！云何菩薩不受福德？」「須菩提！菩薩所作福德，不應貪著，是故說不受福德。」","length":116,"isBalanced":true},{"id":59,"division":"威儀寂靜分第二十九","part":"1/1","text":"「須菩提！若有人言，如來若來若去若坐若臥，是人不解我所說義。」「何以故？如來者，無所從來，亦無所去，故名如來。」","length":56,"isBalanced":true},{"id":60,"division":"一合相理分第三十","part":"1/2","text":"「須菩提！若善男子、善女人，以三千大千世界碎為微塵。於意云何？是微塵眾，寧為多不。」「甚多，世尊！何以故？若是微塵眾實有者，佛則不說是微塵眾。」「所以者何？佛說微塵眾，則非微塵眾，是名微塵眾。」","length":97,"isBalanced":true},{"id":61,"division":"一合相理分第三十","part":"2/2","text":"「世尊！如來所說三千大千世界，則非世界，是名世界。」「何以故？若世界實有，則是一合相。如來說一合相，則非一合相，是名一合相。」「須菩提！一合相者，則是不可說。但凡夫之人，貪著其事。」","length":91,"isBalanced":true},{"id":62,"division":"知見不生分第三十一","part":"1/2","text":"「須菩提！若人言：佛說我見人見眾生見壽者見。須菩提！於意云何？是人解我所說義不？」「世尊！是人不解如來所說義。」「何以故？世尊說：我見人見眾生見壽者見，即非我見人見眾生見壽者見，是名我見人見眾生見壽者見。」","length":103,"isBalanced":true},{"id":63,"division":"知見不生分第三十一","part":"2/2","text":"「須菩提！發阿耨多羅三藐三菩提心者，於一切法，應如是知，如是見，如是信解，不生法相。」「須菩提！所言法相者，如來說即非法相，是名法相。」","length":68,"isBalanced":true},{"id":64,"division":"應化非真分第三十二","part":"1/2","text":"「須菩提！若有人以滿無量阿僧祇世界七寶，持用布施。」「若有善男子、善女人，發菩薩心者，持於此經，乃至四句偈等，受持讀誦，為人演說，其福勝彼。」「云何為人演說？不取於相，如如不動。」","length":90,"isBalanced":true},{"id":65,"division":"應化非真分第三十二","part":"2/2","text":"「何以故？一切有為法，如夢幻泡影，如露亦如電，應作如是觀。」佛說是經已。長者須菩提，及諸比丘、比丘尼、優婆塞、優婆夷，一切世間天人阿修羅，聞佛所說，皆大歡喜。信受奉行。","length":84,"isBalanced":true}];
+        
+        let currentIndex = 0;
+        let memorizedSet = new Set();
+        let currentMode = "normal"; // normal, blur, cloze
+        
+        // Safe storage wrapper to prevent exceptions on file:// protocol
+        const safeStorage = {
+            getItem(key) {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    console.warn("Storage getItem 失敗，改用記憶體暫存:", e);
+                    return this._data[key] || null;
+                }
+            },
+            setItem(key, val) {
+                try {
+                    localStorage.setItem(key, val);
+                } catch (e) {
+                    console.warn("Storage setItem 失敗，改用記憶體暫存:", e);
+                    this._data[key] = String(val);
+                }
+            },
+            _data: {}
+        };
+
+        // Load data from LocalStorage
+        if (safeStorage.getItem("diamondSutraMemorized")) {
+            try {
+                const arr = JSON.parse(safeStorage.getItem("diamondSutraMemorized"));
+                memorizedSet = new Set(arr);
+            } catch (e) {}
+        }
+        if (safeStorage.getItem("diamondSutraCurrentIndex")) {
+            currentIndex = parseInt(safeStorage.getItem("diamondSutraCurrentIndex")) || 0;
+            if (currentIndex < 0 || currentIndex >= cardsData.length) {
+                currentIndex = 0;
+            }
+        }
+
+        // DOM Elements
+        const mainCard = document.getElementById("mainCard");
+        const cardDivision = document.getElementById("cardDivision");
+        const cardNumber = document.getElementById("cardNumber");
+        const cardBody = document.getElementById("cardBody");
+        const cardBodyText = document.getElementById("cardBodyText");
+        const wordCount = document.getElementById("wordCount");
+        const statusCheckbox = document.getElementById("statusCheckbox");
+        const statusText = document.getElementById("statusText");
+        
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        
+        const totalCards = document.getElementById("totalCards");
+        const memorizedCount = document.getElementById("memorizedCount");
+        const progressPct = document.getElementById("progressPct");
+        const progressBar = document.getElementById("progressBar");
+        
+        const themeToggle = document.getElementById("themeToggle");
+        const bellBtn = document.getElementById("bellBtn");
+        const blurBtn = document.getElementById("blurBtn");
+        const clozeBtn = document.getElementById("clozeBtn");
+        const syncBtn = document.getElementById("syncBtn");
+        const divisionSelect = document.getElementById("divisionSelect");
+        const blurOverlay = document.getElementById("blurOverlay");
+
+        // Sync Dialog DOM
+        const syncModal = document.getElementById("syncModal");
+        const syncCloseBtn = document.getElementById("syncCloseBtn");
+        const syncTabBtns = document.querySelectorAll(".sync-tab-btn");
+        const syncTabContents = document.querySelectorAll(".sync-tab-content");
+        
+        const qrCodeImg = document.getElementById("qrCodeImg");
+        const syncLinkInput = document.getElementById("syncLinkInput");
+        const copyLinkBtn = document.getElementById("copyLinkBtn");
+        const copyLinkToast = document.getElementById("copyLinkToast");
+        
+        const mySyncCodeInput = document.getElementById("mySyncCodeInput");
+        const copyCodeBtn = document.getElementById("copyCodeBtn");
+        const copyCodeToast = document.getElementById("copyCodeToast");
+        
+        const importCodeInput = document.getElementById("importCodeInput");
+        const importCodeBtn = document.getElementById("importCodeBtn");
+        const importSuccessToast = document.getElementById("importSuccessToast");
+        
+        
+        // --- 升級版法義說明資料 ---
+        const dharmaData = {"法會因由分第一":{"desc":"記述佛陀日常乞食、敷座而坐的平凡生活，示現「佛法不離世間」，大乘般若智慧即在日常行住坐臥中。","sanskrit":"舍衛國: Śrāvastī<br>祇樹給孤獨園: Jetavana-anāthapiṇḍada-ārāma<br>比丘: Bhikṣu"},"善現啟請分第二":{"desc":"長老須菩提代表大眾啟請佛陀：善男子善女人發無上菩提心，應如何安住？如何降伏妄心？這開啟了《金剛經》的發心問答。","sanskrit":"須菩提: Subhūti<br>如來: Tathāgata<br>阿耨多羅三藐三菩提: Anuttarā Samyak Saṃbodhi"},"大乘正宗分第三":{"desc":"佛陀答覆發心：應滅度一切眾生，而實無一眾生得滅度者。若菩薩心中有我相、人相、眾生相、壽者相的執著，即非真正的菩薩。","sanskrit":"菩薩摩訶薩: Bodhisattva Mahāsattva<br>涅槃: Nirvāṇa<br>壽者相: Jīva-saṃjñā"},"妙行無住分第四":{"desc":"菩薩修行布施，應無所住，不住於色聲香味觸法等六塵相。不住相布施的福德如虛空般不可思量，此為無相布施的妙行。","sanskrit":"布施: Dāna<br>法: Dharma<br>福德: Puṇya"},"如理實見分第五":{"desc":"佛陀開示：不可以身相見如來，因如來身相即非身相。凡所有相皆是虛妄，若能透視「諸相非相」，當下即見如來本性。","sanskrit":"身相: Lakṣaṇa<br>虛妄: Abhūta"},"正信希有分第六":{"desc":"佛開示，若有持戒修福者，聞此經章句能生實信。此人不於一佛二佛種善根，已於無量佛所種善根。不應取法，亦不應取非法。","sanskrit":"持戒: Śīla<br>善根: Kuśalamūla<br>筏喻: Kolôpama"},"無得無說分第七":{"desc":"如來無有定法得菩提，亦無定法可說。如來所說法皆不可取、不可說，非法非非法。一切賢聖皆以「無為法」而顯現差別。","sanskrit":"無為法: Asaṃskṛta Dharma"},"依法出生分第八":{"desc":"即使以滿世界七寶布施，其福德亦不如受持本經四句偈並為他人演說。因為一切諸佛及無上菩提法，皆從此經典出生。","sanskrit":"四句偈: Gāthā"},"一相無相分第九":{"desc":"從小乘四果（須陀洹、斯陀含、阿那含、阿羅漢）說明皆無果相可得。若自以為得果，即是執著我、人、眾生、壽者四相。","sanskrit":"須陀洹: Srotāpanna | 斯陀含: Sakadāgāmin<br>阿那含: Anāgāmin | 阿羅漢: Arhat"},"莊嚴淨土分第十":{"desc":"佛昔在然燈佛所，於法實無所得。菩薩莊嚴佛土，實非莊嚴，是名莊嚴。菩薩應生清淨心，應「無所住而生其心」。","sanskrit":"然燈佛: Dīpaṃkara<br>清淨心: Prasanna-citta<br>無所住而生其心: Apratiṣṭhita-citta"},"無為福勝分第十一":{"desc":"以恆河沙數之七寶布施，福德極多。但若有人受持此經乃至四句偈，為他人演說，此「無為法」福德遠勝前者。","sanskrit":"恆河: Gaṅgā"},"尊重正教分第十二":{"desc":"隨說是經乃至四句偈，當知此處一切天人阿修羅皆應供養如佛塔廟，何況盡能受持讀誦。經典所在之處，即為有佛。","sanskrit":"阿修羅: Asura | 塔廟: Caitya"},"如法受持分第十三":{"desc":"此經名為《金剛般若波羅蜜》，應如法奉持。佛說般若波羅蜜，即非般若波羅蜜。世界微塵，非微塵，是名微塵。","sanskrit":"金剛般若波羅蜜: Vajracchedikā Prajñāpāramitā<br>微塵: Aṇu"},"離相寂滅分第十四":{"desc":"須菩提聞經深解義趣，涕淚悲泣。聞經信解受持者即是第一希有，離一切諸相即名諸佛。如來所得法，此法無實無虛。","sanskrit":"實相: Dharmatā | 忍辱波羅蜜: Kṣānti-pāramitā<br>歌利王: Kali-rāja"},"持經功德分第十五":{"desc":"以身命布施無量百千萬億劫，不如聞此經典信心不逆。此經為發大乘者、發最上乘者說，能成就不可思議無邊功德。","sanskrit":"大乘: Mahāyāna"},"能淨業障分第十六":{"desc":"受持讀誦此經若為人輕賤，是人先世罪業本應墮惡道，以今世被輕賤故，先世罪業消滅，當得無上菩提。","sanskrit":"業障: Karmâvaraṇa | 惡道: Durgati"},"究竟無我分第十七":{"desc":"重提云何住與降伏其心，開示實無有法發菩提心者，實無有法得菩提。通達無我、無人、無眾生、無壽者法者，才是真菩薩。","sanskrit":"菩提心: Bodhicitta | 無我: Anātman"},"一體同觀分第十八":{"desc":"如來具足五眼（肉、天、慧、法、佛眼），能悉知悉見恆河沙國土中一切眾生若干種心，然「過去、現在、未來心不可得」。","sanskrit":"五眼: 肉眼 Māṃsa-cakṣus / 天眼 Divya-cakṣus / 慧眼 Prajñā-cakṣus / 法眼 Dharma-cakṣus / 佛眼 Buddha-cakṣus<br>心: Citta"},"法界通化分第十九":{"desc":"若人滿世界七寶布施，以因緣故得福甚多。然「以福德無故，如來說得福德多」，不可執著於因緣與相對的福德。","sanskrit":"因緣: Hetu-pratyaya"},"離色離相分第二十":{"desc":"如來不應以具足色身與具足諸相見。佛說具足色身與具足諸相，即非具足，是名具足，旨在破除對外在色相的執著。","sanskrit":"色身: Rūpa-kāya"},"非說所說分第二十一":{"desc":"如來勿謂作是念「我當有所說法」。若人言如來有所說法即為謗佛，不能解佛所說。說法者無法可說，是名說法。","sanskrit":"說法: Dharma-deśanā"},"無法可得分第二十二":{"desc":"須菩提白佛言：佛得無上正等正覺，為無所得耶？佛言：我於菩提乃至無有少法可得，是名阿耨多羅三藐三菩提。","sanskrit":"少法: Alpa-dharma"},"淨心行善分第二十三":{"desc":"是法平等，無有高下，是名菩提。以無我、無人、無眾生、無壽者，修一切善法，即得菩提。所言善法即非善法。","sanskrit":"善法: Kuśala Dharma | 平等: Samatā"},"福智無比分第二十四":{"desc":"若以滿世界諸須彌山王等七寶聚布施，其福德亦不及受持讀誦此經乃至四句偈，並為他人演說之功德。","sanskrit":"須彌山: Sumeru"},"化無所化分第二十五":{"desc":"如來勿作是念「我當度眾生」。實無有眾生如來度者，若有，如來即有我人眾生壽者四相。凡夫者，即非凡夫。","sanskrit":"凡夫: Pṛthagjana | 度: Tāraṇa"},"法身非相分第二十六":{"desc":"若以三十二相觀如來，轉輪聖王即是如來。佛說經典名偈：「若以色見我，以音聲求我，是人行邪道，不能見如來。」","sanskrit":"轉輪聖王: Cakravartin"},"無斷無滅分第二十七":{"desc":"發菩提心者，於法不說斷滅相。不可作是念：如來不以具足相故得菩提。般若中道不墮「常、斷」兩邊。","sanskrit":"斷滅: Uccheda"},"不受不貪分第二十八":{"desc":"參透無我、得成於忍的菩薩，功功德勝過寶施菩薩。因為菩薩不受福德，菩薩所作福德不應貪著，是故不受。","sanskrit":"忍: Kṣānti | 貪著: Rága"},"威儀寂靜分第二十九":{"desc":"若言如來若來若去若坐若臥，是不解佛說義。如來者，無所從來，亦無所去，故名如來（法身無處不在）。","sanskrit":"去來: Gamanâgamana"},"一合相理分第三十":{"desc":"三千大千世界碎為微塵，微塵眾非微塵眾，世界非世界。若世界實有，則是一合相，一合相即非一合相，不可貪著。","sanskrit":"一合相: Piṇḍa-graha"},"知見不生分第三十一":{"desc":"若人言佛說我見人見眾生見壽者見，是不解佛意。發菩提心者，於一切法，應如是知、如是見、如是信解，不生法相。","sanskrit":"法相: Dharma-saṃjñā | 知見: Jñāna-darśana"},"應化非真分第三十二":{"desc":"菩薩為人演說此經，應「不取於相，如如不動」。因為「一切有為法，如夢幻泡影，如露亦如電，應作如是觀。」","sanskrit":"有為法: Saṃskṛta Dharma | 夢幻泡影: Svapna-māyā-bubbula-pratibhāsa"}};
+        const dharmaBtn = document.getElementById("dharmaBtn");
+        const dharmaModal = document.getElementById("dharmaModal");
+        const dharmaCloseBtn = document.getElementById("dharmaCloseBtn");
+        const dharmaTitle = document.getElementById("dharmaTitle");
+        const dharmaDesc = document.getElementById("dharmaDesc");
+        const dharmaSanskrit = document.getElementById("dharmaSanskrit");
+
+        if (dharmaBtn) {
+            dharmaBtn.addEventListener("click", () => {
+                const card = cardsData[currentIndex];
+                const info = dharmaData[card.division];
+                if (info) {
+                    dharmaTitle.innerHTML = `📖 法義：${card.division}`;
+                    dharmaDesc.innerHTML = info.desc;
+                    dharmaSanskrit.innerHTML = info.sanskrit;
+                    dharmaModal.style.display = "flex";
+                }
+            });
+        }
+
+        if (dharmaCloseBtn) {
+            dharmaCloseBtn.addEventListener("click", () => {
+                dharmaModal.style.display = "none";
+            });
+        }
+
+        const syncPromptOverlay = document.getElementById("syncPromptOverlay");
+        const syncPromptText = document.getElementById("syncPromptText");
+        const syncMergeBtn = document.getElementById("syncMergeBtn");
+        const syncCancelBtn = document.getElementById("syncCancelBtn");
+
+        // Web Audio Zen Bell synthesizer
+        function playZenBell() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                
+                const ctx = new AudioContext();
+                
+                // Fundamental frequency (crystal clear sine)
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5 tone
+                
+                // Warm rich harmonic 1
+                const h1 = ctx.createOscillator();
+                const g1 = ctx.createGain();
+                h1.type = 'sine';
+                h1.frequency.setValueAtTime(783.99, ctx.currentTime); // G5 perfect fifth
+                
+                // High metal ring overtone
+                const h2 = ctx.createOscillator();
+                const g2 = ctx.createGain();
+                h2.type = 'sine';
+                h2.frequency.setValueAtTime(1046.50, ctx.currentTime); // C6 octave
+                
+                // Envelope shapes
+                gain.gain.setValueAtTime(0, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.0); // 4 seconds decay
+                
+                g1.gain.setValueAtTime(0, ctx.currentTime);
+                g1.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+                g1.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.5);
+                
+                g2.gain.setValueAtTime(0, ctx.currentTime);
+                g2.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.08);
+                g2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
+                
+                // Connect and Start
+                osc.connect(gain);
+                h1.connect(g1);
+                h2.connect(g2);
+                
+                gain.connect(ctx.destination);
+                g1.connect(ctx.destination);
+                g2.connect(ctx.destination);
+                
+                osc.start();
+                h1.start();
+                h2.start();
+                
+                osc.stop(ctx.currentTime + 4.0);
+                h1.stop(ctx.currentTime + 4.0);
+                h2.stop(ctx.currentTime + 4.0);
+            } catch (e) {
+                console.warn("Web Audio API not supported or blocked:", e);
+            }
+        }
+
+        // Initialize Division Select options
+        function initDivisions() {
+            const divMap = new Map();
+            cardsData.forEach((card, idx) => {
+                if (!divMap.has(card.division)) {
+                    divMap.set(card.division, idx);
+                }
+            });
+            
+            divisionSelect.innerHTML = "";
+            divMap.forEach((firstCardIdx, divName) => {
+                const opt = document.createElement("option");
+                opt.value = firstCardIdx;
+                opt.textContent = divName;
+                divisionSelect.appendChild(opt);
+            });
+        }
+
+        // Update current card view
+        function renderCard() {
+            const card = cardsData[currentIndex];
+            
+            // Metadata
+            cardDivision.textContent = card.division;
+            cardNumber.textContent = `${card.id} / ${cardsData.length}`;
+            wordCount.textContent = `字數: ${card.length} 字`;
+            
+            // Apply text modes
+            if (currentMode === "blur") {
+                mainCard.classList.add("blur-active");
+                cardBodyText.innerHTML = renderClozeText(card.text, false);
+            } else if (currentMode === "cloze") {
+                mainCard.classList.remove("blur-active");
+                cardBodyText.innerHTML = renderClozeText(card.text, true);
+            } else {
+                mainCard.classList.remove("blur-active");
+                cardBodyText.innerHTML = card.text;
+            }
+            
+            // Memorized status
+            const isMemorized = memorizedSet.has(card.id);
+            statusCheckbox.checked = isMemorized;
+            if (isMemorized) {
+                mainCard.classList.add("memorized");
+                statusText.textContent = "已背誦";
+            } else {
+                mainCard.classList.remove("memorized");
+                statusText.textContent = "標記為已背誦";
+            }
+            
+            // Navigation buttons states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cardsData.length - 1;
+            
+            // Update Division select jumper
+            updateDivisionSelect();
+            
+            // Trigger light animation
+            mainCard.classList.remove("animated");
+            void mainCard.offsetWidth; // trigger reflow
+            mainCard.classList.add("animated");
+            
+            // Save index state
+            safeStorage.setItem("diamondSutraCurrentIndex", currentIndex);
+        }
+
+        // Helper to format text with click-to-reveal for random words (cloze test)
+        function renderClozeText(text, enableCloze) {
+            if (!enableCloze) return text;
+            
+            // We want to hide some words. For classical Chinese, let's hide every 5th or 6th character
+            let result = "";
+            let counter = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                // Hide only Chinese characters (not punctuation)
+                if (/[一-龥]/.test(char)) {
+                    counter++;
+                    if (counter % 5 === 0) {
+                        result += `<span class="hidden-word" onclick="this.classList.toggle('revealed')">${char}</span>`;
+                    } else {
+                        result += char;
+                    }
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        // Jumper selector sync
+        function updateDivisionSelect() {
+            const currentCard = cardsData[currentIndex];
+            for (let opt of divisionSelect.options) {
+                if (opt.textContent === currentCard.division) {
+                    divisionSelect.value = opt.value;
+                    break;
+                }
+            }
+        }
+
+        // Dashboard/progress update
+        function updateProgress() {
+            const total = cardsData.length;
+            const count = memorizedSet.size;
+            const pct = Math.round((count / total) * 100);
+            
+            totalCards.textContent = total;
+            memorizedCount.textContent = count;
+            progressPct.textContent = `${pct}%`;
+            progressBar.style.width = `${pct}%`;
+            
+            safeStorage.setItem("diamondSutraMemorized", JSON.stringify(Array.from(memorizedSet)));
+        }
+
+        // Actions handlers
+        function toggleMemorized() {
+            const card = cardsData[currentIndex];
+            if (memorizedSet.has(card.id)) {
+                memorizedSet.delete(card.id);
+            } else {
+                memorizedSet.add(card.id);
+                // Play soft bell on marking as memorized
+                playZenBell();
+            }
+            updateProgress();
+            renderCard();
+        }
+
+        function nextCard() {
+            if (currentIndex < cardsData.length - 1) {
+                currentIndex++;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function toggleBlur() {
+            if (currentMode === "blur") {
+                currentMode = "normal";
+                blurBtn.classList.remove("active");
+            } else {
+                currentMode = "blur";
+                blurBtn.classList.add("active");
+                clozeBtn.classList.remove("active");
+            }
+            renderCard();
+        }
+
+        function toggleCloze() {
+            if (currentMode === "cloze") {
+                currentMode = "normal";
+                clozeBtn.classList.remove("active");
+            } else {
+                currentMode = "cloze";
+                clozeBtn.classList.add("active");
+                blurBtn.classList.remove("active");
+            }
+            renderCard();
+        }
+
+        // --- 同步功能邏輯 ---
+        function getSyncUrl() {
+            // 使用 HTTPS 協定，避免手機瀏覽器阻擋
+            const baseUrl = 'https://prajna-recitation-tally.surge.sh';
+            const progressArr = Array.from(memorizedSet);
+            if (progressArr.length === 0) return baseUrl;
+            return `${baseUrl}#sync=${progressArr.join(",")}`;
+        }
+        
+        function getSyncCode() {
+            return Array.from(memorizedSet).join(",");
+        }
+        
+        function updateSyncInfo() {
+            const syncUrl = getSyncUrl();
+            const syncCode = getSyncCode();
+            
+            syncLinkInput.value = syncUrl;
+            mySyncCodeInput.value = syncCode || "無背誦進度";
+            
+            // 使用穩定免費的 QR Code API
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(syncUrl)}`;
+            qrCodeImg.src = qrApiUrl;
+        }
+
+        // Tab 切換
+        syncTabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                syncTabBtns.forEach(b => b.classList.remove("active"));
+                syncTabContents.forEach(c => c.classList.remove("active"));
+                
+                btn.classList.add("active");
+                const targetTab = btn.getAttribute("data-tab");
+                document.getElementById(targetTab).classList.add("active");
+            });
+        });
+
+        // 複製按鈕
+        if (copyLinkBtn) copyLinkBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(syncLinkInput.value).then(() => {
+                copyLinkToast.style.display = "block";
+                setTimeout(() => { copyLinkToast.style.display = "none"; }, 3000);
+            });
+        });
+        
+        if (copyCodeBtn) copyCodeBtn.addEventListener("click", () => {
+            if (mySyncCodeInput.value !== "無背誦進度") {
+                navigator.clipboard.writeText(mySyncCodeInput.value).then(() => {
+                    copyCodeToast.style.display = "block";
+                    setTimeout(() => { copyCodeToast.style.display = "none"; }, 3000);
+                });
+            }
+        });
+
+        // 匯入與合併
+        if (importCodeBtn) importCodeBtn.addEventListener("click", () => {
+            const codeStr = importCodeInput.value.trim();
+            if (!codeStr) return;
+            
+            try {
+                const ids = codeStr.split(",").map(x => parseInt(x)).filter(x => !isNaN(x));
+                if (ids.length > 0) {
+                    ids.forEach(id => memorizedSet.add(id));
+                    updateProgress();
+                    renderCard();
+                    playZenBell();
+                    
+                    importSuccessToast.style.display = "block";
+                    importCodeInput.value = "";
+                    updateSyncInfo();
+                    setTimeout(() => { importSuccessToast.style.display = "none"; }, 3000);
+                } else {
+                    alert("同步碼格式無效。");
+                }
+            } catch (e) {
+                alert("匯入失敗：" + e.message);
+            }
+        });
+
+        // URL Hash 同步偵測
+        let pendingSyncIds = [];
+        function checkUrlSync() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith("#sync=")) {
+                const syncStr = hash.replace("#sync=", "");
+                if (syncStr) {
+                    try {
+                        pendingSyncIds = syncStr.split(",").map(x => parseInt(x)).filter(x => !isNaN(x) && x >= 1 && x <= cardsData.length);
+                        if (pendingSyncIds.length > 0) {
+                            // 顯示自訂合併確認卡片
+                            syncPromptText.textContent = `偵測到來自其他裝置的 ${pendingSyncIds.length} 個背誦進度，是否與此裝置合併？`;
+                            syncPromptOverlay.style.display = "flex";
+                        }
+                    } catch (e) {
+                        console.error("解析同步資料失敗:", e);
+                    }
+                }
+                // 清除 hash 保持網址乾淨
+                history.replaceState(null, document.title, window.location.pathname + window.location.search);
+            }
+        }
+        
+        if (syncMergeBtn) syncMergeBtn.addEventListener("click", () => {
+            pendingSyncIds.forEach(id => memorizedSet.add(id));
+            updateProgress();
+            renderCard();
+            playZenBell();
+            syncPromptOverlay.style.display = "none";
+            pendingSyncIds = [];
+        });
+        
+        if (syncCancelBtn) syncCancelBtn.addEventListener("click", () => {
+            syncPromptOverlay.style.display = "none";
+            pendingSyncIds = [];
+        });
+
+        // Event Listeners
+        prevBtn.addEventListener("click", prevCard);
+        nextBtn.addEventListener("click", nextCard);
+        
+        statusCheckbox.addEventListener("change", toggleMemorized);
+        
+        bellBtn.addEventListener("click", playZenBell);
+        blurBtn.addEventListener("click", toggleBlur);
+        clozeBtn.addEventListener("click", toggleCloze);
+        
+        if (syncBtn) syncBtn.addEventListener("click", () => {
+            updateSyncInfo();
+            syncModal.style.display = "flex";
+        });
+        
+        if (syncCloseBtn) syncCloseBtn.addEventListener("click", () => {
+            syncModal.style.display = "none";
+            copyLinkToast.style.display = "none";
+            copyCodeToast.style.display = "none";
+            importSuccessToast.style.display = "none";
+        });
+        
+        blurOverlay.addEventListener("click", () => {
+            currentMode = "normal";
+            blurBtn.classList.remove("active");
+            renderCard();
+        });
+        
+        divisionSelect.addEventListener("change", (e) => {
+            currentIndex = parseInt(e.target.value);
+            renderCard();
+        });
+
+        // Theme Switcher
+        let activeTheme = safeStorage.getItem("diamondSutraTheme") || "dark";
+        document.documentElement.setAttribute("data-theme", activeTheme);
+        updateThemeToggleIcon();
+
+        themeToggle.addEventListener("click", () => {
+            activeTheme = activeTheme === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", activeTheme);
+            safeStorage.setItem("diamondSutraTheme", activeTheme);
+            updateThemeToggleIcon();
+        });
+
+        function updateThemeToggleIcon() {
+            if (activeTheme === "dark") {
+                themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+            } else {
+                themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+            }
+        }
+
+        // Keyboard Shortcuts Handler
+        window.addEventListener("keydown", (e) => {
+            // Ignore if user typing in a text field
+            if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") {
+                return;
+            }
+            
+            switch (e.key) {
+                case "ArrowLeft":
+                    prevCard();
+                    e.preventDefault();
+                    break;
+                case "ArrowRight":
+                    nextCard();
+                    e.preventDefault();
+                    break;
+                case " ":
+                    toggleBlur();
+                    e.preventDefault();
+                    break;
+                case "m":
+                case "M":
+                    toggleMemorized();
+                    e.preventDefault();
+                    break;
+                case "c":
+                case "C":
+                    toggleCloze();
+                    e.preventDefault();
+                    break;
+                case "b":
+                case "B":
+                    playZenBell();
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        // Initialization
+        initDivisions();
+        updateProgress();
+        renderCard();
+        checkUrlSync();
+</script>
+</body>
+</html>

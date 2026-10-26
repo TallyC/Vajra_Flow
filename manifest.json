@@ -1,0 +1,22 @@
+{
+  "name": "金剛般若波羅蜜經每日背誦卡",
+  "short_name": "金剛經背誦",
+  "description": "金剛般若波羅蜜經每日背誦小卡 · 溫故知新",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1a1c23",
+  "theme_color": "#1a1c23",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

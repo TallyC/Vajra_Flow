@@ -1,0 +1,2601 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金剛般若波羅蜜經 — 每日背誦小卡</title>
+    <!-- iOS / PWA 主畫面圖示與獨立 App 顯示設定 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="金剛經背誦">
+    <meta name="theme-color" content="#1a1c23">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+
+        /* Custom Logo Area */
+        .logo-wrapper {
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-wrapper img {
+            max-height: 72px;
+            max-width: 220px;
+            object-fit: contain;
+            border-radius: 8px;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+            transition: var(--transition);
+            display: none;
+        }
+
+        .logo-wrapper img:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 30px;
+            background: rgba(var(--accent-gold-rgb), 0.08);
+            border: 1px dashed var(--card-border-active);
+            color: var(--accent-gold);
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logo-badge:hover {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border-style: solid;
+        }
+
+        .logo-symbol {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .version-badge {
+            font-size: 0.8rem;
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            color: var(--accent-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 0.25rem;
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+            letter-spacing: 0.05em;
+        }
+
+        :root {
+            /* 沉穩護眼暗調（古茶灰/暗曜石，告別死黑，柔和不刺眼） */
+            --bg-color: #1a1c23;
+            --card-bg: rgba(30, 34, 42, 0.85);
+            --card-border: rgba(212, 175, 55, 0.22);
+            --card-border-active: rgba(212, 175, 55, 0.6);
+            --text-main: #dfdfe6;
+            --text-muted: #9ba1b0;
+            --accent-gold: #d4af37;
+            --accent-gold-hover: #f3e5ab;
+            --accent-gold-rgb: 212, 175, 55;
+            --success: #2ec4b6;
+            --glass-blur: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="light"] {
+            /* 暖日微沙 / 溫潤宣紙風（告別刺眼亮白，護眼低對比） */
+            --bg-color: #ebe6dc;
+            --card-bg: rgba(238, 233, 224, 0.92);
+            --card-border: rgba(160, 120, 50, 0.22);
+            --card-border-active: rgba(160, 120, 50, 0.6);
+            --text-main: #2e2820;
+            --text-muted: #786f63;
+            --accent-gold: #9a6d1a;
+            --accent-gold-hover: #7b5410;
+            --accent-gold-rgb: 154, 109, 26;
+            --success: #1d7863;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', 'Noto Serif TC', 'BiauKai', 'Kaiti', serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0.75rem 0.75rem 2rem 0.75rem;
+            transition: var(--transition);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(var(--accent-gold-rgb), 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(var(--accent-gold-rgb), 0.03) 0%, transparent 40%);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        /* Dashboard & Stats */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-val {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-gold);
+            border-radius: 3px;
+            transition: width 0.5s ease-out;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Card Container with Perspective for Flip */
+        .card-perspective {
+            perspective: 1000px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        /* The Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            min-height: 380px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(var(--glass-blur));
+            position: relative;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 20px 50px rgba(var(--accent-gold-rgb), 0.15);
+        }
+
+        /* Card Headers */
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(var(--accent-gold-rgb), 0.15);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-division {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
+
+        .card-number {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+        }
+
+        /* Card Body (Main Text) */
+        .card-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: justify;
+            line-height: 2.2;
+            font-size: var(--sutra-font-size, 1.55rem);
+            font-family: var(--sutra-font-family, 'BiauKai', 'DFKai-SB', 'Kaiti', serif);
+            letter-spacing: 0.1em;
+            word-break: break-all;
+            transition: var(--transition);
+        }
+
+        /* Memorize helpers */
+        .hidden-word {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            color: transparent;
+            border-bottom: 2px solid var(--accent-gold);
+            cursor: pointer;
+            padding: 0 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .hidden-word:hover, .hidden-word.revealed {
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .blur-active .card-body-text {
+            filter: blur(8px);
+            user-select: none;
+            opacity: 0.3;
+        }
+
+        .card-body-text {
+            font-family: var(--sutra-font-family, 'Kaiti TC', 'DFKai-SB', '標楷體', serif) !important;
+            font-size: var(--sutra-font-size, 1.55rem) !important;
+            line-height: var(--sutra-line-height, 1.7) !important;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+            width: 100%;
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .blur-active .blur-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .blur-text {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border: 1px dashed var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Card Footer */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(var(--accent-gold-rgb), 0.1);
+        }
+
+        .word-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .card-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .card-status input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        .card-status:hover {
+            color: var(--accent-gold);
+        }
+
+        .card.memorized {
+            border-color: var(--success);
+        }
+        
+        .card.memorized .card-status {
+            color: var(--success);
+        }
+
+        /* Actions & Navigation */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            backdrop-filter: blur(var(--glass-blur));
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(var(--accent-gold-rgb), 0.15);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-gold {
+            background: var(--accent-gold);
+            color: #0b0c10 !important;
+            border-color: var(--accent-gold);
+        }
+
+        .btn-gold:hover:not(:disabled) {
+            background: var(--accent-gold-hover);
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 4px 20px rgba(var(--accent-gold-rgb), 0.4) !important;
+        }
+
+        /* Quick Jumper & Helper tools */
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            justify-content: center;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .tool-btn {
+            background: rgba(var(--accent-gold-rgb), 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tool-btn:hover, .tool-btn.active {
+            background: rgba(var(--accent-gold-rgb), 0.15);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .jumper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .jumper select {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .jumper select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* Theme & Utilities */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(var(--glass-blur));
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Keyboard Shortcut Guide */
+        .shortcuts {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .shortcut-key {
+            background: rgba(var(--accent-gold-rgb), 0.1);
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+            border-radius: 4px;
+            padding: 0.1rem 0.4rem;
+            color: var(--accent-gold);
+            font-family: monospace;
+            margin: 0 0.15rem;
+        }
+
+        /* Animations */
+        /* --- 柔順祥和的翻卡轉場 (告別突兀蹦跳，外框固著，內文如行雲流水) --- */
+        @keyframes sutraSlideNext {
+            0% {
+                opacity: 0.25;
+                transform: translate3d(14px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes sutraSlidePrev {
+            0% {
+                opacity: 0.25;
+                transform: translate3d(-14px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes sutraFadeIn {
+            0% {
+                opacity: 0.35;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .slide-next {
+            animation: sutraSlideNext 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity;
+        }
+
+        .slide-prev {
+            animation: sutraSlidePrev 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity;
+        }
+
+        .text-fade-in {
+            animation: sutraFadeIn 0.22s ease-out forwards;
+            will-change: opacity;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .card {
+                padding: 1.5rem;
+                min-height: 320px;
+            }
+            .card-body {
+                line-height: 2.0;
+            }
+            .controls {
+                gap: 0.5rem;
+            }
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .tools {
+                padding: 0.8rem 0.5rem;
+                gap: 0.5rem;
+            }
+            .tool-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* --- 同步功能專用樣式 --- */
+        .sync-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+        [data-theme="light"] .sync-modal-overlay {
+            background: rgba(250, 246, 238, 0.85);
+        }
+        .sync-modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border-active);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .sync-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(var(--accent-gold-rgb), 0.2);
+            padding-bottom: 0.75rem;
+        }
+        .sync-modal-header h3 {
+            color: var(--accent-gold);
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+        }
+        .sync-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+        .sync-close-btn:hover {
+            color: var(--accent-gold);
+        }
+        .sync-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+        [data-theme="light"] .sync-tabs {
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+        .sync-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .sync-tab-btn:hover, .sync-tab-btn.active {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+        .sync-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .sync-tab-content.active {
+            display: block;
+        }
+        .sync-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+        }
+        .sync-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .sync-input-group input {
+            flex: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .sync-input-group input:focus {
+            border-color: var(--accent-gold);
+        }
+        .sync-section-title {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+        .sync-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 1.5rem 0;
+        }
+        [data-theme="light"] .sync-divider {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .toast-tip {
+            font-size: 0.8rem;
+            color: var(--success);
+            margin-top: 0.3rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .sync-prompt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        [data-theme="light"] .sync-prompt-overlay {
+            background: rgba(250, 246, 238, 0.85);
+        }
+        .sync-prompt-card {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .sync-prompt-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+        }
+        .sync-prompt-card p {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .sync-prompt-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .prompt-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .prompt-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .prompt-btn.btn-gold {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #0b0c10 !important;
+        }
+        .prompt-btn.btn-gold:hover {
+            background: var(--accent-gold-hover);
+            border-color: var(--accent-gold-hover);
+            box-shadow: 0 4px 15px rgba(var(--accent-gold-rgb), 0.3);
+        }
+
+        
+        /* --- 頂部緊湊整合列 --- */
+        .compact-header {
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.2rem 0;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-brand h1 {
+            font-size: 1.35rem;
+            margin: 0;
+            color: var(--accent-gold);
+            letter-spacing: 0.08em;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .jumper-top select {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 0.3rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            outline: none;
+            max-width: 140px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .jumper-top select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .top-icon-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            padding: 0;
+        }
+
+        .top-icon-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* --- 一列式精萃複習排程列 (緊湊一目了然) --- */
+        .review-strip {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0.35rem 0.6rem;
+            margin-bottom: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .review-pill-header {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(var(--accent-gold-rgb), 0.12);
+            padding: 0.18rem 0.45rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+        }
+
+        .review-items-row {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex: 1;
+            scrollbar-width: none;
+        }
+        .review-items-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-chips-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .review-sep {
+            color: var(--card-border);
+            font-size: 0.75rem;
+            user-select: none;
+            margin: 0 0.1rem;
+        }
+
+        .ebb-btn {
+            background: rgba(var(--accent-gold-rgb), 0.08);
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.25);
+            color: var(--accent-gold);
+            padding: 0.18rem 0.45rem;
+            border-radius: 5px;
+            font-size: 0.73rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .ebb-btn:hover {
+            background: var(--accent-gold);
+            color: #1a1c23 !important;
+            border-color: var(--accent-gold);
+        }
+
+        .ebb-btn.checked {
+            background: rgba(46, 196, 182, 0.12);
+            border-color: rgba(46, 196, 182, 0.4);
+            color: var(--success);
+        }
+
+        .ebb-btn.checked:hover {
+            background: var(--success);
+            color: #ffffff !important;
+        }
+
+        /* --- 設定面板樣式 --- */
+        .setting-pill-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .setting-pill-btn {
+            flex: 1;
+            min-width: 80px;
+            background: rgba(var(--accent-gold-rgb), 0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.45rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .setting-pill-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .setting-pill-btn.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #1a1c23 !important;
+            font-weight: 600;
+        }
+
+
+    
+        /* TTS Toast */
+        .tts-toast {
+            position: fixed;
+            top: 4.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(22, 25, 32, 0.95);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease;
+            text-align: center;
+            max-width: 90%;
+            pointer-events: none;
+        }
+        [data-theme="light"] .tts-toast {
+            background: rgba(245, 240, 230, 0.96);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+    </style>
+</head>
+<body>
+
+        <header class="compact-header">
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="logo-wrapper" style="margin-bottom: 0;">
+                    <img id="customLogo" src="logo.png" alt="自訂標誌" 
+                         onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='inline-flex';" 
+                         onload="this.style.display='inline-block'; document.getElementById('logoPlaceholder').style.display='none';">
+                    <div id="logoPlaceholder" class="logo-badge" title="可放置 logo.png 自訂標誌" style="padding: 0.2rem 0.5rem;">
+                        <span class="logo-symbol" style="font-size: 0.95rem;">☸</span>
+                    </div>
+                </div>
+                <h1>金剛般若波羅蜜經</h1>
+                <span class="version-badge" style="margin-top: 0;">v1.2</span>
+            </div>
+            
+            <div class="header-actions">
+                <!-- 跳轉分會 (放在最上方) -->
+                <div class="jumper-top">
+                    <select id="divisionSelect" aria-label="跳轉分會"></select>
+                </div>
+                <!-- 閱讀設定按鈕 -->
+                <button class="top-icon-btn" id="settingsBtn" title="閱讀設定（字級、字體）" aria-label="閱讀設定">
+                    ⚙️
+                </button>
+                <!-- 主題切換按鈕 -->
+                <button class="top-icon-btn" id="themeToggle" title="切換主題" aria-label="切換主題">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    
+
+    
+
+    <!-- Card Wrapper -->
+    <main class="container">
+                <!-- 一列式精萃溫故知新列 (保留成一列，一目了然) -->
+        <section class="review-strip" id="reviewStrip">
+            <div class="review-pill-header" title="溫故知新">
+                <span>溫故</span>
+            </div>
+            <div class="review-items-row">
+                <!-- 當日新學 (5m, 30m, 12h) -->
+                <div class="review-chips-group" id="shortTermItems"></div>
+                <span class="review-sep">|</span>
+                <!-- 歷日溫習 (1d, 2d, 4d, 7d, 15d, 30d) -->
+                <div class="review-chips-group" id="longTermItems"></div>
+            </div>
+        </section>
+        
+        <!-- TTS Floating Toast -->
+        <div id="ttsToast" class="tts-toast" style="display: none;">
+            <span id="ttsToastText">🔊 念誦中...</span>
+        </div>
+
+        <div class="card-perspective">
+            <div class="card" id="mainCard">
+                <div class="card-meta">
+                    <span class="card-division" id="cardDivision">法會因由分第一</span>
+                    <span class="card-number" id="cardNumber">1 / 63</span>
+                </div>
+                
+                <div class="card-body" id="cardBody">
+                    <div class="blur-overlay" id="blurOverlay">
+                        <span class="blur-text">點擊或按下 [空白鍵] 顯示經文</span>
+                    </div>
+                    <div class="card-body-text" id="cardBodyText">
+                        經文載入中...
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <span class="word-count" id="wordCount">字數: 0 字</span>
+                    <label class="card-status">
+                        <input type="checkbox" id="statusCheckbox">
+                        <span id="statusText">標記為已背誦</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+        <!-- Reading Settings Modal -->
+        <div id="settingsModal" class="sync-modal-overlay" style="display: none;">
+            <div class="sync-modal-card" style="max-width: 440px;">
+                <div class="sync-modal-header">
+                    <h3>⚙️ 閱讀與念誦設定</h3>
+                    <button class="sync-close-btn" id="settingsCloseBtn">&times;</button>
+                </div>
+                
+                <div style="margin-top: 1rem; max-height: 70vh; overflow-y: auto; padding-right: 0.2rem;">
+                    <!-- 念誦聲音選擇 (微軟高品質自然原聲，支援背景/鎖屏播放) -->
+                    <div style="margin-bottom: 1.2rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">🎙️ 念誦聲音 (高品質自然原聲 · 支援關閉畫面/鎖屏播放)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn active" data-voice="male">👨 男生念誦 (雲揚大師 · 莊嚴深沉)</button>
+                            <button class="setting-pill-btn" data-voice="female">👩 女生念誦 (曉臻導師 · 柔和清淨)</button>
+                        </div>
+                        <div style="margin-top: 0.5rem; display: flex; justify-content: flex-end;">
+                            <button id="testVoiceBtn" class="ebb-btn" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                🔊 試聽目前聲音
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 念誦語速選擇 -->
+                    <div style="margin-bottom: 1.2rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">⏱️ 念誦語速 (Recitation Speed)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn" data-rate="0.75">慢速 (0.75x)</button>
+                            <button class="setting-pill-btn active" data-rate="0.85">標準誦經 (0.85x)</button>
+                            <button class="setting-pill-btn" data-rate="1.0">常速 (1.0x)</button>
+                        </div>
+                    </div>
+
+                    <!-- 連續念誦下一卡 -->
+                    <div style="margin-bottom: 1.3rem; background: rgba(var(--accent-gold-rgb), 0.06); padding: 0.75rem 0.9rem; border-radius: 8px; border: 1px solid var(--card-border);">
+                        <label style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 0.83rem; color: var(--text-main); line-height: 1.5;">
+                            <input type="checkbox" id="autoAdvanceTtsCheckbox" style="accent-color: var(--accent-gold); width: 16px; height: 16px; margin-top: 2px;">
+                            <span><strong>自動連續念誦下一卡 (支援鎖屏背景連播)</strong><br><span style="color: var(--text-muted); font-size: 0.76rem;">鎖定螢幕或關閉畫面時，依舊自動連續念誦全卷金剛經</span></span>
+                        </label>
+                    </div>
+
+                    <!-- 溫故知新排程列開關 -->
+                    <div style="margin-bottom: 1.2rem; border-top: 1px solid var(--card-border); padding-top: 1rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">📅 溫故知新排程列 (Review Schedule)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn active" data-review="true">顯示排程列 (預設)</button>
+                            <button class="setting-pill-btn" data-review="false">關閉 / 隱藏</button>
+                        </div>
+                        <span style="display:block; margin-top: 0.35rem; color: var(--text-muted); font-size: 0.74rem;">關閉後隱藏上方複習條，為經文爭取更多直覺閱讀空間</span>
+                    </div>
+
+                    <!-- 經文字體選擇 -->
+                    <div style="margin-bottom: 1.2rem; border-top: 1px solid var(--card-border); padding-top: 1rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">✒️ 經文字體 (Font Family)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn" data-font="kaiti" style="font-family: 'Kaiti TC', 'DFKai-SB', '標楷體', serif;">經典楷體</button>
+                            <button class="setting-pill-btn" data-font="serif" style="font-family: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;">宋體 / 細明體</button>
+                            <button class="setting-pill-btn" data-font="sans" style="font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;">清晰黑體</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 經文字級大小 -->
+                    <div style="margin-bottom: 1.2rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">🔍 經文字級 (Font Size)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn" data-size="small">小 (20px)</button>
+                            <button class="setting-pill-btn" data-size="medium">標準 (24px)</button>
+                            <button class="setting-pill-btn" data-size="large">大 (28px)</button>
+                            <button class="setting-pill-btn" data-size="xlarge">特大 (32px)</button>
+                        </div>
+                    </div>
+
+                    <!-- 經文行距設定 -->
+                    <div style="margin-bottom: 1.2rem;">
+                        <label style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: block; margin-bottom: 0.5rem;">📏 經文行距 (Line Spacing)</label>
+                        <div class="setting-pill-group">
+                            <button class="setting-pill-btn" data-lineheight="1.4">緊湊 (1.4)</button>
+                            <button class="setting-pill-btn active" data-lineheight="1.7">舒適 (1.7)</button>
+                            <button class="setting-pill-btn" data-lineheight="2.0">寬鬆 (2.0)</button>
+                            <button class="setting-pill-btn" data-lineheight="2.3">超寬 (2.3)</button>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: 1.2rem;">
+                        <button class="nav-btn btn-gold" id="settingsDoneBtn" style="padding: 0.45rem 1.5rem;">確認完成</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Quick Review Modal -->
+        <div id="reviewModal" class="sync-modal-overlay" style="display: none;">
+            <div class="sync-modal-card" style="max-width: 500px;">
+                <div class="sync-modal-header">
+                    <h3 id="reviewTitle">🔍 快速複習：U12</h3>
+                    <button class="sync-close-btn" id="reviewCloseBtn">&times;</button>
+                </div>
+                <div class="sync-tab-content active" style="margin-top: 1rem;">
+                    <div class="card-division" id="reviewDivision" style="font-size: 0.8rem; color: var(--accent-gold); margin-bottom: 0.5rem;">法會因由分第一</div>
+                    <div id="reviewText" style="font-size: 1.05rem; color: var(--text-main); line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; border: 1px solid var(--card-border); max-height: 250px; overflow-y: auto;">
+                        經文載入中...
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <button class="prompt-btn" id="reviewBlurBtn">👁️ 遮蔽</button>
+                        <button class="prompt-btn btn-gold" id="reviewDoneBtn" style="color: #0b0c10 !important;">✓ 已複習完成</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync Modal -->
+        <div id="syncModal" class="sync-modal-overlay" style="display: none;">
+            <div class="sync-modal-card">
+                <div class="sync-modal-header">
+                    <h3>🔄 雙端背誦進度同步</h3>
+                    <button class="sync-close-btn" id="syncCloseBtn">&times;</button>
+                </div>
+                
+                <div class="sync-tabs">
+                    <button class="sync-tab-btn active" data-tab="qrTab">手機掃碼</button>
+                    <button class="sync-tab-btn" data-tab="linkTab">傳送連結</button>
+                    <button class="sync-tab-btn" data-tab="manualTab">手動同步碼</button>
+                </div>
+                
+                <div class="sync-tab-content active" id="qrTab">
+                    <p class="sync-desc">用手機掃描下方二維碼，即可在手機上開啟背誦小卡並<strong>自動合併</strong>您目前的背誦進度。</p>
+                    <div class="qr-container">
+                        <img id="qrCodeImg" src="" alt="同步二維碼載入中...">
+                    </div>
+                </div>
+                
+                <div class="sync-tab-content" id="linkTab">
+                    <p class="sync-desc">複製下方專屬連結，傳送給手機或另一台裝置開啟，即可進行進度合併：</p>
+                    <div class="sync-input-group">
+                        <input type="text" id="syncLinkInput" readonly>
+                        <button class="nav-btn btn-gold" id="copyLinkBtn">複製連結</button>
+                    </div>
+                    <div id="copyLinkToast" class="toast-tip" style="display: none;">✓ 連結已複製，可傳送至手機開啟！</div>
+                </div>
+                
+                <div class="sync-tab-content" id="manualTab">
+                    <p class="sync-desc">若兩端皆無法上網或掃碼，可手動複製此機同步碼，並在另一台裝置貼入：</p>
+                    <div class="sync-section-title">此裝置同步碼 (已背誦卡片序號)</div>
+                    <div class="sync-input-group">
+                        <input type="text" id="mySyncCodeInput" readonly>
+                        <button class="nav-btn btn-gold" id="copyCodeBtn">複製</button>
+                    </div>
+                    <div id="copyCodeToast" class="toast-tip" style="display: none;">✓ 同步碼已複製！</div>
+                    
+                    <div class="sync-divider"></div>
+                    
+                    <div class="sync-section-title">輸入另一台裝置的同步碼</div>
+                    <div class="sync-input-group">
+                        <input type="text" id="importCodeInput" placeholder="例如: 1,2,5,12">
+                        <button class="nav-btn btn-gold" id="importCodeBtn">匯入並合併</button>
+                    </div>
+                    <div id="importSuccessToast" class="toast-tip" style="display: none;">✓ 進度已成功合併！</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Sync Prompt Overlay -->
+        <div id="syncPromptOverlay" class="sync-prompt-overlay" style="display: none;">
+            <div class="sync-prompt-card">
+                <h3>🔄 偵測到同步進度</h3>
+                <p id="syncPromptText">有來自其他裝置的已背誦卡片進度，是否與此裝置合併？</p>
+                <div class="sync-prompt-btns">
+                    <button class="prompt-btn btn-gold" id="syncMergeBtn">合併進度</button>
+                    <button class="prompt-btn" id="syncCancelBtn">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <section class="controls">
+            <button class="nav-btn" id="prevBtn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                上一卡
+            </button>
+            <button class="nav-btn btn-gold" id="nextBtn">
+                下一卡
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </section>
+
+        
+
+        <!-- Toolbars -->
+                        <section class="tools">
+            <button class="tool-btn" id="ttsBtn" title="念誦經文（支援男生、女生聲音）">
+                🔊 念誦
+            </button>
+            <button class="tool-btn" id="blurBtn" title="遮蔽經文以測試背誦">
+                👁️ 遮蔽
+            </button>
+            <button class="tool-btn" id="clozeBtn" title="挖空隨機字詞">
+                🧩 挖空
+            </button>
+            <button class="tool-btn" id="syncBtn" title="同步背誦進度至手機或其他裝置">
+                🔄 同步進度
+            </button>
+            <button class="tool-btn" id="settingsBtnBottom" title="設定字體、字級與念誦聲音">
+                ⚙️ 設定
+            </button>
+        </section>
+
+        
+
+                <!-- Stats Dashboard (背誦進度置底) -->
+        <section class="dashboard" style="margin-top: 2rem; border-top: 1px solid var(--card-border); padding-top: 1.5rem; width: 100%;">
+            <div class="stat-item">
+                <div class="stat-val" id="totalCards">0</div>
+                <div class="stat-lbl">總卡數</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val" id="memorizedCount">0</div>
+                <div class="stat-lbl">已背誦</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val" id="progressPct">0%</div>
+                <div class="stat-lbl">背誦進度</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </section>
+
+        <!-- Keyboard Shortcuts -->
+        <footer class="shortcuts">
+            操作指引：
+            <span class="shortcut-key">←</span> 上一卡 / 👈 向右滑 &nbsp;
+            <span class="shortcut-key">→</span> 下一卡 / 👉 向左滑 &nbsp;
+            <span class="shortcut-key">P</span> 念誦/停止 &nbsp;
+            <span class="shortcut-key">Space</span> 遮蔽/顯示 &nbsp;
+            <span class="shortcut-key">M</span> 標記已背誦 &nbsp;
+            <span class="shortcut-key">C</span> 隨機挖空
+        </footer>
+    </main>
+
+    <script>
+        // Embed the database
+        const cardsData = [{"id": 1, "division": "法會因由分第一", "part": "1/1", "text": "如是我聞：一時，佛在舍衛國、祇樹給孤獨園：與大比丘眾，千二百五十人俱。爾時，世尊食時，著衣持缽，入舍衛大城乞食。於其城中，次第乞已，還至本處。飯食訖，收衣缽，洗足已，敷座而坐。", "length": 88, "isBalanced": true}, {"id": 2, "division": "善現啟請分第二", "part": "1/2", "text": "時，長老須菩提，在大眾中，即從座起；偏袒右肩，右膝著地，合掌恭敬，而白佛言：「希有！世尊！如來善護念諸菩薩，善付囑諸菩薩。世尊！善男子、善女人，發阿耨多羅三藐三菩提心，應云何住？云何降伏其心？」", "length": 97, "isBalanced": true}, {"id": 3, "division": "善現啟請分第二", "part": "2/2", "text": "佛言：「善哉，善哉！須菩提！如汝所說：如來善護念諸菩薩，善付囑諸菩薩。汝今諦聽，當為汝說。善男子、善女人，發阿耨多羅三藐三菩提心；應如是住，如是降伏其心。」「唯然。世尊！願樂欲聞。」", "length": 91, "isBalanced": true}, {"id": 4, "division": "大乘正宗分第三", "part": "1/1", "text": "佛告須菩提：「諸菩薩摩訶薩，應如是降伏其心！所有一切，眾生之類：若卵生、若胎生、若濕生、若化生；若有色、若無色；若有想、若無想、若非有想非無想，我皆令入，無餘涅槃，而滅度之。如是滅度，無量無數，無邊眾生；實無眾生，得滅度者。何以故？須菩提！若菩薩有：我相、人相、眾生相、壽者相，即非菩薩。", "length": 144, "isBalanced": true}, {"id": 5, "division": "妙行無住分第四", "part": "1/1", "text": "「復次，須菩提！菩薩於法，應無所住：行於布施，所謂不住色布施，不住聲香味觸法布施。須菩提！菩薩應如是布施，不住於相。何以故？若菩薩不住相布施，其福德不可思量。「須菩提！於意云何？東方虛空，可思量不？」「不也，世尊！」「須菩提！南西北方、四維上下虛空，可思量不？」「不也，世尊！」「須菩提！菩薩無住相布施，福德亦復如是，不可思量。須菩提！菩薩但應如所教住。」", "length": 178, "isBalanced": true}, {"id": 6, "division": "如理實見分第五", "part": "1/1", "text": "「須菩提！於意云何？可以身相，見如來不？」「不也，世尊！不可以身相，得見如來。何以故？如來所說身相，即非身相。」佛告須菩提：「凡所有相，皆是虛妄；若見諸相非相，則見如來。」", "length": 86, "isBalanced": true}, {"id": 7, "division": "正信希有分第六", "part": "1/3", "text": "須菩提白佛言：「世尊！頗有眾生，得聞如是，言說章句；生實信不？」佛告須菩提：「莫作是說。如來滅後，後五百歲，有持戒修福者；於此章句，能生信心，以此為實。當知是人，不於一佛、二佛、三四五佛，而種善根；已於無量，千萬佛所，種諸善根。", "length": 114, "isBalanced": true}, {"id": 8, "division": "正信希有分第六", "part": "2/3", "text": "「聞是章句，乃至一念，生淨信者，須菩提！如來悉知悉見，是諸眾生，得如是無量福德。何以故？是諸眾生，無復我相、人相、眾生相、壽者相。「無法相，亦無非法相。何以故？是諸眾生，若心取相；則為著我、人、眾生、壽者。", "length": 103, "isBalanced": true}, {"id": 9, "division": "正信希有分第六", "part": "3/3", "text": "「若取法相，即著我、人、眾生、壽者。何以故？若取非法相，即著我、人、眾生、壽者。是故不應取法，不應取非法。以是義故，如來常說：汝等比丘，知我說法，如筏喻者；法尚應捨，何況非法？", "length": 88, "isBalanced": true}, {"id": 10, "division": "無得無說分第七", "part": "1/1", "text": "「須菩提！於意云何？如來得，阿耨多羅三藐三菩提耶？如來有所，說法耶？」須菩提言：「如我解佛所說義，無有定法，名阿耨多羅三藐三菩提；亦無有定法，如來可說。何以故？如來所說法，皆不可取、不可說、非法、非非法。所以者何？一切賢聖，皆以無為法，而有差別。」", "length": 124, "isBalanced": true}, {"id": 11, "division": "依法出生分第八", "part": "1/2", "text": "「須菩提！於意云何？若人滿三千大千世界七寶，以用布施；是人所得福德，寧為多不？」須菩提言：「甚多，世尊！何以故？是福德，即非福德性；是故如來，說福德多。」", "length": 77, "isBalanced": true}, {"id": 12, "division": "依法出生分第八", "part": "2/2", "text": "「若復有人，於此經中受持，乃至四句偈等，為他人說，其福勝彼。何以故？須菩提！一切諸佛，及諸佛阿耨多羅三藐三菩提法，皆從此經出。須菩提！所謂佛、法者，即非佛、法。", "length": 80, "isBalanced": true}, {"id": 13, "division": "一相無相分第九", "part": "1/3", "text": "「須菩提！於意云何？須陀洹，能作是念：『我得須陀洹果』不？」須菩提言：「不也，世尊！何以故？須陀洹，名為入流，而無所入；不入色聲香味觸法，是名須陀洹。」「須菩提！於意云何？斯陀含，能作是念：『我得斯陀含果』不？」須菩提言：「不也，世尊！何以故？斯陀含，名一往來；而實無往來，是名斯陀含。」", "length": 144, "isBalanced": true}, {"id": 14, "division": "一相無相分第九", "part": "2/3", "text": "「須菩提！於意云何？阿那含，能作是念：『我得阿那含果』不？」須菩提言：「不也，世尊！何以故？阿那含，名為不來；而實無來，是故名阿那含。」「須菩提！於意云何？阿羅漢，能作是念：『我得阿羅漢道』不？」須菩提言：「不也，世尊！何以故？實無有法，名阿羅漢。世尊！若阿羅漢，作是念：『我得阿羅漢道』；即為著我、人、眾生、壽者。", "length": 158, "isBalanced": true}, {"id": 15, "division": "一相無相分第九", "part": "3/3", "text": "世尊！佛說我得，無諍三昧；人中最為第一，是第一離欲阿羅漢。我不作是念：『我是離欲阿羅漢』。世尊！我若作是念：『我得阿羅漢道』；世尊則不說：須菩提，是樂阿蘭那行者！以須菩提，實無所行；而名須菩提，是樂阿蘭那行。」", "length": 105, "isBalanced": true}, {"id": 16, "division": "莊嚴淨土分第十", "part": "1/2", "text": "佛告須菩提：「於意云何？如來昔在，然燈佛所；於法有所得不？」「世尊！如來在然燈佛所，於法實無所得。」「須菩提！於意云何？菩薩莊嚴佛土不？」「不也，世尊！何以故？莊嚴佛土者，則非莊嚴，是名莊嚴。」", "length": 97, "isBalanced": true}, {"id": 17, "division": "莊嚴淨土分第十", "part": "2/2", "text": "「是故須菩提，諸菩薩摩訶薩，應如是生清淨心：不應住色生心，不應住聲香味觸法生心；應無所住，而生其心。須菩提！譬如有人，身如須彌山王；於意云何？是身為大不？」須菩提言：「甚大，世尊！何以故？佛說非身，是名大身。」", "length": 105, "isBalanced": true}, {"id": 18, "division": "無為福勝分第十一", "part": "1/2", "text": "「須菩提！如恒河中，所有沙數；如是沙等恒河，於意云何？是諸恒河沙，寧為多不？」須菩提言：「甚多，世尊！但諸恒河，尚多無數；何況其沙！」", "length": 67, "isBalanced": true}, {"id": 19, "division": "無為福勝分第十一", "part": "2/2", "text": "「須菩提！我今實言告汝：若有善男子、善女人，以七寶滿爾所，恒河沙數、三千大千世界，以用布施；得福多不？」須菩提言：「甚多，世尊！」佛告須菩提：「若善男子、善女人，於此經中，乃至受持，四句偈等，為他人說；而此福德，勝前福德。", "length": 111, "isBalanced": true}, {"id": 20, "division": "尊重正教分第十二", "part": "1/1", "text": "「復次，須菩提！隨說是經，乃至四句偈等；當知此處，一切世間、天、人、阿修羅，皆應供養，如佛塔廟。何況有人，盡能受持讀誦。須菩提！當知是人，成就最上、第一希有之法。若是經典，所在之處；則為有佛，若尊重弟子。」", "length": 103, "isBalanced": true}, {"id": 21, "division": "如法受持分第十三", "part": "1/3", "text": "爾時，須菩提白佛言：「世尊！當何名此經？我等云何奉持？」佛告須菩提：「是經名為，《金剛般若波羅蜜》；以是名字，汝當奉持。所以者何？須菩提！佛說般若波羅蜜，則非般若波羅蜜。須菩提！於意云何？如來有所說法不？」須菩提白佛言：「世尊！如來無所說。」", "length": 121, "isBalanced": true}, {"id": 22, "division": "如法受持分第十三", "part": "2/3", "text": "「須菩提！於意云何？三千大千世界，所有微塵，是為多不？」須菩提言：「甚多，世尊！」「須菩提！諸微塵，如來說非微塵，是名微塵。如來說：世界，非世界，是名世界。", "length": 78, "isBalanced": true}, {"id": 23, "division": "如法受持分第十三", "part": "3/3", "text": "「須菩提！於意云何？可以三十二相，見如來不？」「不也，世尊！何以故？如來說：三十二相，即是非相，是名三十二相。」「須菩提！若有善男子、善女人，以恒河沙等，身命布施；若復有人，於此經中，乃至受持，四句偈等，為他人說，其福甚多！」", "length": 113, "isBalanced": true}, {"id": 24, "division": "離相寂滅分第十四", "part": "1/7", "text": "爾時，須菩提聞說是經，深解義趣；涕淚悲泣，而白佛言：「希有，世尊！佛說如是，甚深經典；我從昔來，所得慧眼，未曾得聞，如是之經。世尊！若復有人，得聞是經；信心清淨，則生實相。當知是人，成就第一，希有功德。「世尊！是實相者，則是非相；是故如來，說名實相。", "length": 125, "isBalanced": true}, {"id": 25, "division": "離相寂滅分第十四", "part": "2/7", "text": "「世尊！我今得聞，如是經典；信解受持，不足為難。若當來世，後五百歲，其有眾生，得聞是經，信解受持；是人則為，第一希有。何以故？此人無我相、人相、眾生相、壽者相。所以者何？我相即是非相，人相、眾生相、壽者相即是非相。何以故？離一切諸相，則名諸佛。」", "length": 123, "isBalanced": true}, {"id": 26, "division": "離相寂滅分第十四", "part": "3/7", "text": "佛告須菩提：「如是！如是！若復有人，得聞是經，不驚、不怖、不畏；當知是人，甚為希有。何以故？須菩提！如來說：第一波羅蜜，非第一波羅蜜，是名第一波羅蜜。須菩提！忍辱波羅蜜，如來說非忍辱波羅蜜。何以故？", "length": 99, "isBalanced": true}, {"id": 27, "division": "離相寂滅分第十四", "part": "4/7", "text": "「須菩提！如我昔為歌利王，割截身體；我於爾時，無我相、無人相、無眾生相、無壽者相。何以故？我於往昔，節節支解時；若有我相、人相、眾生相、壽者相，應生瞋恨。「須菩提！又念過去，於五百世，作忍辱仙人；於爾所世，無我相、無人相、無眾生相、無壽者相。", "length": 121, "isBalanced": true}, {"id": 28, "division": "離相寂滅分第十四", "part": "5/7", "text": "「是故須菩提！菩薩應離一切相，發阿耨多羅三藐三菩提心；不應住色生心，不應住聲香味觸法生心，應生無所住心。若心有住，則為非住。是故佛說：菩薩心不應，住色布施。須菩提！菩薩為利益，一切眾生，應如是布施。「如來說：一切諸相，即是非相。又說：一切眾生，則非眾生。", "length": 127, "isBalanced": true}, {"id": 29, "division": "離相寂滅分第十四", "part": "6/7", "text": "須菩提！如來是：真語者、實語者、如語者、不誑語者、不異語者。須菩提！如來所得法，此法無實無虛。「須菩提！若菩薩，心住於法，而行布施；如人入暗，則無所見。若菩薩，心不住法，而行布施；如人有目，日光明照，見種種色。", "length": 105, "isBalanced": true}, {"id": 30, "division": "離相寂滅分第十四", "part": "7/7", "text": "「須菩提！當來之世，若有善男子、善女人，能於此經，受持讀誦；則為如來，以佛智慧，悉知是人，悉見是人，皆得成就，無量無邊功德。", "length": 62, "isBalanced": true}, {"id": 31, "division": "持經功德分第十五", "part": "1/3", "text": "「須菩提！若有善男子、善女人，初日分，以恒河沙等身布施；中日分，復以恒河沙等身布施；後日分，亦以恒河沙等身布施；如是無量，百千萬億劫，以身布施。若復有人，聞此經典，信心不逆，其福勝彼；何況書寫、受持、讀誦、為人解說。", "length": 108, "isBalanced": true}, {"id": 32, "division": "持經功德分第十五", "part": "2/3", "text": "「須菩提！以要言之，是經有不可思議、不可稱量、無邊功德。如來為發大乘者說，為發最上乘者說。若有人能，受持讀誦，廣為人說；如來悉知是人，悉見是人，皆成就不可量、不可稱、無有邊、不可思議功德。如是人等，則為荷擔，如來阿耨多羅三藐三菩提。何以故？", "length": 120, "isBalanced": true}, {"id": 33, "division": "持經功德分第十五", "part": "3/3", "text": "「須菩提！若樂小法者，著我見、人見、眾生見、壽者見；則於此經，不能聽受、讀誦，為人解說。「須菩提！在在處處，若有此經；一切世間、天、人、阿修羅，所應供養。當知此處，則為是塔，皆應恭敬，作禮圍遶；以諸華香，而散其處。", "length": 107, "isBalanced": true}, {"id": 34, "division": "能淨業障分第十六", "part": "1/3", "text": "「復次，須菩提！善男子、善女人，受持讀誦此經，若為人輕賤；是人先世罪業，應墮惡道，以今世人輕賤故，先世罪業，則為消滅，當得阿耨多羅三藐三菩提。", "length": 71, "isBalanced": true}, {"id": 35, "division": "能淨業障分第十六", "part": "2/3", "text": "「須菩提！我念過去，無量阿僧祇劫，於然燈佛前，得值八百四千萬億、那由他諸佛；悉皆供養承事，無空過者。若復有人，於後末世，能受持、讀誦此經；所得功德，於我所供養諸佛功德，百分不及一，千萬億分，乃至算數譬喻，所不能及。", "length": 107, "isBalanced": true}, {"id": 36, "division": "能淨業障分第十六", "part": "3/3", "text": "「須菩提！若善男子、善女人，於後末世，有受持、讀誦此經，所得功德，我若具說者；或有人聞，心則狂亂，狐疑不信。須菩提！當知：是經義不可思議，果報亦不可思議。」爾時，須菩提白佛言：「世尊！善男子、善女人，發阿耨多羅三藐三菩提心，云何應住？云何降伏其心？」", "length": 125, "isBalanced": true}, {"id": 37, "division": "究竟無我分第十七", "part": "1/6", "text": "佛告須菩提：「善男子、善女人，發阿耨多羅三藐三菩提者，當生如是心：我應滅度，一切眾生；滅度一切眾生已，而無有一眾生，實滅度者。何以故？若菩薩有，我相、人相、眾生相、壽者相，則非菩薩。所以者何？須菩提！實無有法，發阿耨多羅三藐三菩提者。", "length": 117, "isBalanced": true}, {"id": 38, "division": "究竟無我分第十七", "part": "2/6", "text": "「須菩提！於意云何？如來於然燈佛所，有法得阿耨多羅三藐三菩提不？」「不也，世尊！如我解佛所說義，佛於然燈佛所；無有法得，阿耨多羅三藐三菩提。」佛言：「如是，如是。須菩提！實無有法，如來得阿耨多羅三藐三菩提。", "length": 103, "isBalanced": true}, {"id": 39, "division": "究竟無我分第十七", "part": "3/6", "text": "須菩提！若有法如來得，阿耨多羅三藐三菩提；然燈佛則，不與我授記：『汝於來世，當得作佛，號釋迦牟尼。』以實無有法，得阿耨多羅三藐三菩提；是故然燈佛，與我授記，作是言：『汝於來世，當得作佛，號釋迦牟尼。』何以故？如來者，即諸法如義。", "length": 114, "isBalanced": true}, {"id": 40, "division": "究竟無我分第十七", "part": "4/6", "text": "「若有人言：如來得，阿耨多羅三藐三菩提。須菩提！實無有法，佛得阿耨多羅三藐三菩提。須菩提！如來所得，阿耨多羅三藐三菩提，於是中無實無虛。是故如來說：一切法，皆是佛法。須菩提！所言一切法者，即非一切法，是故名一切法。", "length": 107, "isBalanced": true}, {"id": 41, "division": "究竟無我分第十七", "part": "5/6", "text": "須菩提！譬如人身長大。」須菩提言：「世尊！如來說：人身長大，則為非大身，是名大身。」「須菩提！菩薩亦如是。若作是言：『我當滅度，無量眾生』，則不名菩薩。何以故？須菩提！無有法，名為菩薩。是故佛說：一切法，無我、無人、無眾生、無壽者。", "length": 116, "isBalanced": true}, {"id": 42, "division": "究竟無我分第十七", "part": "6/6", "text": "須菩提！若菩薩作是言：『我當莊嚴佛土』，是不名菩薩。何以故？如來說：莊嚴佛土者，即非莊嚴，是名莊嚴。須菩提！若菩薩通達，無我、法者；如來說，名真是菩薩。」", "length": 77, "isBalanced": true}, {"id": 43, "division": "一體同觀分第十八", "part": "1/3", "text": "「須菩提！於意云何？如來有肉眼不？」「如是，世尊！如來有肉眼。」「須菩提！於意云何？如來有天眼不？」「如是，世尊！如來有天眼。」「須菩提！於意云何？如來有慧眼不？」「如是，世尊！如來有慧眼。」「須菩提！於意云何？如來有法眼不？」「如是，世尊！如來有法眼。」「須菩提！於意云何？如來有佛眼不？」「如是，世尊！如來有佛眼。」", "length": 160, "isBalanced": true}, {"id": 44, "division": "一體同觀分第十八", "part": "2/3", "text": "「須菩提！於意云何？恒河中所有沙，佛說是沙不？」「如是，世尊！如來說是沙。」「須菩提！於意云何？如一恒河中所有沙，有如是等恒河；是諸恒河所有沙數，佛世界如是，寧為多不？」「甚多，世尊！」", "length": 93, "isBalanced": true}, {"id": 45, "division": "一體同觀分第十八", "part": "3/3", "text": "佛告須菩提：「爾所國土中，所有眾生，若干種心，如來悉知。何以故？如來說：諸心，皆為非心，是名為心。所以者何？須菩提！過去心不可得，現在心不可得，未來心不可得。", "length": 79, "isBalanced": true}, {"id": 46, "division": "法界通化分第十九", "part": "1/1", "text": "「須菩提！於意云何？若有人，滿三千大千世界七寶，以用布施；是人以是因緣，得福多不？」「如是，世尊！此人以是因緣，得福甚多。」「須菩提！若福德有實，如來不說，得福德多；以福德無故，如來說得福德多。", "length": 97, "isBalanced": true}, {"id": 47, "division": "離色離相分第二十", "part": "1/1", "text": "「須菩提！於意云何？佛可以，具足色身見不？」「不也，世尊！如來不應，以色身見。何以故？如來說：具足色身，即非具足色身，是名具足色身。」「須菩提！於意云何？如來可以，具足諸相見不？」「不也，世尊！如來不應以，具足諸相見。何以故？如來說：諸相具足，即非具足，是名諸相具足。」", "length": 135, "isBalanced": true}, {"id": 48, "division": "非說所說分第二十一", "part": "1/2", "text": "「須菩提！汝勿謂如來作是念：『我當有所說法。』莫作是念，何以故？若人言：『如來有所說法。』即為謗佛，不能解我所說故。須菩提！說法者，無法可說，是名說法。」", "length": 77, "isBalanced": true}, {"id": 49, "division": "非說所說分第二十一", "part": "2/2", "text": "爾時，慧命須菩提白佛言：「世尊！頗有眾生，於未來世，聞說是法；生信心不？」佛言：「須菩提！彼非眾生，非不眾生。何以故？須菩提！眾生、眾生者，如來說非眾生，是名眾生。」", "length": 83, "isBalanced": true}, {"id": 50, "division": "無法可得分第二十二", "part": "1/1", "text": "須菩提白佛言：「世尊！佛得阿耨多羅三藐三菩提，為無所得耶？」「如是，如是！須菩提！我於阿耨多羅三藐三菩提，乃至無有少法可得，是名阿耨多羅三藐三菩提。", "length": 74, "isBalanced": true}, {"id": 51, "division": "淨心行善分第二十三", "part": "1/1", "text": "「復次，須菩提！是法平等，無有高下，是名阿耨多羅三藐三菩提。以無我、無人、無眾生、無壽者，修一切善法，則得阿耨多羅三藐三菩提。須菩提！所言善法者，如來說非善法，是名善法。", "length": 85, "isBalanced": true}, {"id": 52, "division": "福智無比分第二十四", "part": "1/1", "text": "「須菩提！若三千大千世界中，所有諸須彌山王，如是等七寶聚，有人持用布施。若人以此《般若波羅蜜經》，乃至四句偈等，受持、為他人說；於前福德，百分不及一，百千萬億分，乃至算數譬喻，所不能及。", "length": 93, "isBalanced": true}, {"id": 53, "division": "化無所化分第二十五", "part": "1/1", "text": "「須菩提！於意云何？汝等勿謂，如來作是念：『我當度眾生。』須菩提！莫作是念。何以故？實無有眾生，如來度者。若有眾生，如來度者；如來則有，我人眾生壽者。須菩提！如來說：『有我者，則非有我；而凡夫之人，以為有我。』須菩提！凡夫者，如來說則非凡夫。", "length": 121, "isBalanced": true}, {"id": 54, "division": "法身非相分第二十六", "part": "1/2", "text": "「須菩提！於意云何？可以三十二相，觀如來不？」須菩提言：「如是！如是！以三十二相，觀如來。」佛言：「須菩提！若以三十二相，觀如來者；轉輪聖王，則是如來。」須菩提白佛言：「世尊！如我解佛所說義，不應以三十二相觀如來。」", "length": 108, "isBalanced": true}, {"id": 55, "division": "法身非相分第二十六", "part": "2/2", "text": "爾時，世尊而說偈言：「若以色見我，以音聲求我；是人行邪道，不能見如來。（應觀佛法性，即導師法身；法性非所識，故彼不能了。）", "length": 61, "isBalanced": true}, {"id": 56, "division": "無斷無滅分第二十七", "part": "1/1", "text": "「須菩提！汝若作是念：『如來不以，具足相故，得阿耨多羅三藐三菩提。』須菩提！莫作是念：『如來不以，具足相故，得阿耨多羅三藐三菩提。』須菩提！汝若作是念：發阿耨多羅三藐三菩提者，說諸法斷滅。莫作是念！何以故？發阿耨多羅三藐三菩提者，於法不說斷滅相。", "length": 123, "isBalanced": true}, {"id": 57, "division": "不受不貪分第二十八", "part": "1/1", "text": "「須菩提！若菩薩以，滿恒河沙等世界、七寶布施。若復有人，知一切法無我，得成於忍；此菩薩勝前菩薩，所得功德。須菩提！以諸菩薩，不受福德故。」須菩提白佛言：「世尊！云何菩薩，不受福德？」「須菩提！菩薩所作福德，不應貪著；是故說，不受福德。", "length": 117, "isBalanced": true}, {"id": 58, "division": "威儀寂靜分第二十九", "part": "1/1", "text": "「須菩提！若有人言：如來若來若去，若坐若臥；是人不解，我所說義。何以故？如來者，無所從來，亦無所去，故名如來。「須菩提！若善男子、善女人，以三千大千世界，碎為微塵。於意云何？是微塵眾，寧為多不？」", "length": 98, "isBalanced": true}, {"id": 59, "division": "一合相理分第三十", "part": "1/1", "text": "「甚多，世尊！何以故？若是微塵眾，實有者；佛則不說，是微塵眾。所以者何？佛說：微塵眾，則非微塵眾，是名微塵眾。世尊！如來所說：三千大千世界，則非世界，是名世界。何以故？若世界實有，則是一合相。如來說：一合相，則非一合相，是名一合相。」「須菩提！一合相者，則是不可說；但凡夫之人，貪著其事。", "length": 144, "isBalanced": true}, {"id": 60, "division": "知見不生分第三十一", "part": "1/2", "text": "「須菩提！若人言，佛說：我見、人見、眾生見、壽者見。須菩提！於意云何？是人解我，所說義不？」「世尊！是人不解，如來所說義。何以故？世尊說：我見、人見、眾生見、壽者見，即非：我見、人見、眾生見、壽者見，是名：我見、人見、眾生見、壽者見。」", "length": 118, "isBalanced": true}, {"id": 61, "division": "知見不生分第三十一", "part": "2/2", "text": "「須菩提！發阿耨多羅三藐三菩提心者：於一切法，應如是知、如是見、如是信解，不生法相。須菩提！所言：法相者，如來說即非法相，是名法相。", "length": 66, "isBalanced": true}, {"id": 62, "division": "應化非真分第三十二", "part": "1/2", "text": "「須菩提！若有人以，滿無量阿僧祇、世界七寶，持用布施；若有善男子、善女人，發菩薩心者，持於此經，乃至四句偈等，受持讀誦，為人演說，其福勝彼。云何為人演說？不取於相，如如不動。何以故？", "length": 91, "isBalanced": true}, {"id": 63, "division": "應化非真分第三十二", "part": "2/2", "text": "「一切有為法，如夢幻泡影；如露亦如電，應作如是觀。」佛說是經已，長老須菩提，及諸比丘、比丘尼、優婆塞、優婆夷、一切世間天、人、阿修羅；聞佛所說，皆大歡喜，信受奉行。", "length": 82, "isBalanced": true}];
+        
+        let currentIndex = 0;
+        let memorizedSet = new Set();
+        let currentMode = "normal"; // normal, blur, cloze
+        
+        // Safe storage wrapper to prevent exceptions on file:// protocol
+        const safeStorage = {
+            getItem(key) {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    console.warn("Storage getItem 失敗，改用記憶體暫存:", e);
+                    return this._data[key] || null;
+                }
+            },
+            setItem(key, val) {
+                try {
+                    localStorage.setItem(key, val);
+                } catch (e) {
+                    console.warn("Storage setItem 失敗，改用記憶體暫存:", e);
+                    this._data[key] = String(val);
+                }
+            },
+            _data: {}
+        };
+
+        // Load data from LocalStorage
+        if (safeStorage.getItem("diamondSutraMemorized")) {
+            try {
+                const arr = JSON.parse(safeStorage.getItem("diamondSutraMemorized"));
+                memorizedSet = new Set(arr);
+            } catch (e) {}
+        }
+        if (safeStorage.getItem("diamondSutraCurrentIndex")) {
+            currentIndex = parseInt(safeStorage.getItem("diamondSutraCurrentIndex")) || 0;
+            if (currentIndex < 0 || currentIndex >= cardsData.length) {
+                currentIndex = 0;
+            }
+        }
+
+        // DOM Elements
+        const mainCard = document.getElementById("mainCard");
+        const cardDivision = document.getElementById("cardDivision");
+        const cardNumber = document.getElementById("cardNumber");
+        const cardBody = document.getElementById("cardBody");
+        const cardBodyText = document.getElementById("cardBodyText");
+        const wordCount = document.getElementById("wordCount");
+        const statusCheckbox = document.getElementById("statusCheckbox");
+        const statusText = document.getElementById("statusText");
+        
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        
+        const totalCards = document.getElementById("totalCards");
+        const memorizedCount = document.getElementById("memorizedCount");
+        const progressPct = document.getElementById("progressPct");
+        const progressBar = document.getElementById("progressBar");
+        
+        const themeToggle = document.getElementById("themeToggle");
+        const blurBtn = document.getElementById("blurBtn");
+        const clozeBtn = document.getElementById("clozeBtn");
+        const syncBtn = document.getElementById("syncBtn");
+        const divisionSelect = document.getElementById("divisionSelect");
+        const blurOverlay = document.getElementById("blurOverlay");
+
+        // Sync Dialog DOM
+        const syncModal = document.getElementById("syncModal");
+        const syncCloseBtn = document.getElementById("syncCloseBtn");
+        const syncTabBtns = document.querySelectorAll(".sync-tab-btn");
+        const syncTabContents = document.querySelectorAll(".sync-tab-content");
+        
+        const qrCodeImg = document.getElementById("qrCodeImg");
+        const syncLinkInput = document.getElementById("syncLinkInput");
+        const copyLinkBtn = document.getElementById("copyLinkBtn");
+        const copyLinkToast = document.getElementById("copyLinkToast");
+        
+        const mySyncCodeInput = document.getElementById("mySyncCodeInput");
+        const copyCodeBtn = document.getElementById("copyCodeBtn");
+        const copyCodeToast = document.getElementById("copyCodeToast");
+        
+        const importCodeInput = document.getElementById("importCodeInput");
+        const importCodeBtn = document.getElementById("importCodeBtn");
+        const importSuccessToast = document.getElementById("importSuccessToast");
+        
+        const syncPromptOverlay = document.getElementById("syncPromptOverlay");
+        const syncPromptText = document.getElementById("syncPromptText");
+        const syncMergeBtn = document.getElementById("syncMergeBtn");
+        const syncCancelBtn = document.getElementById("syncCancelBtn");
+
+        // Web Audio Zen Bell synthesizer
+        function playZenBell() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                
+                const ctx = new AudioContext();
+                
+                // Fundamental frequency (crystal clear sine)
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5 tone
+                
+                // Warm rich harmonic 1
+                const h1 = ctx.createOscillator();
+                const g1 = ctx.createGain();
+                h1.type = 'sine';
+                h1.frequency.setValueAtTime(783.99, ctx.currentTime); // G5 perfect fifth
+                
+                // High metal ring overtone
+                const h2 = ctx.createOscillator();
+                const g2 = ctx.createGain();
+                h2.type = 'sine';
+                h2.frequency.setValueAtTime(1046.50, ctx.currentTime); // C6 octave
+                
+                // Envelope shapes
+                gain.gain.setValueAtTime(0, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.0); // 4 seconds decay
+                
+                g1.gain.setValueAtTime(0, ctx.currentTime);
+                g1.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+                g1.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.5);
+                
+                g2.gain.setValueAtTime(0, ctx.currentTime);
+                g2.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.08);
+                g2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
+                
+                // Connect and Start
+                osc.connect(gain);
+                h1.connect(g1);
+                h2.connect(g2);
+                
+                gain.connect(ctx.destination);
+                g1.connect(ctx.destination);
+                g2.connect(ctx.destination);
+                
+                osc.start();
+                h1.start();
+                h2.start();
+                
+                osc.stop(ctx.currentTime + 4.0);
+                h1.stop(ctx.currentTime + 4.0);
+                h2.stop(ctx.currentTime + 4.0);
+            } catch (e) {
+                console.warn("Web Audio API not supported or blocked:", e);
+            }
+        }
+
+
+        // --- 艾賓浩斯複習面板邏輯 ---
+        let checkedReviews = {};
+        try {
+            const stored = safeStorage.getItem("diamondSutraCheckedReviews");
+            if (stored) checkedReviews = JSON.parse(stored);
+        } catch(e) {}
+
+        function isReviewChecked(key) {
+            const cardKey = `card_${currentIndex}`;
+            return checkedReviews[cardKey] && checkedReviews[cardKey].includes(key);
+        }
+
+        function toggleReviewChecked(key) {
+            const cardKey = `card_${currentIndex}`;
+            if (!checkedReviews[cardKey]) checkedReviews[cardKey] = [];
+            
+            const idx = checkedReviews[cardKey].indexOf(key);
+            if (idx > -1) {
+                checkedReviews[cardKey].splice(idx, 1);
+            } else {
+                checkedReviews[cardKey].push(key);
+                playZenBell(); // play a gentle bell on checking off
+            }
+            safeStorage.setItem("diamondSutraCheckedReviews", JSON.stringify(checkedReviews));
+            updateEbbinghausPanel();
+        }
+
+        const reviewModal = document.getElementById("reviewModal");
+        const reviewTitle = document.getElementById("reviewTitle");
+        const reviewText = document.getElementById("reviewText");
+        const reviewDivision = document.getElementById("reviewDivision");
+        const reviewCloseBtn = document.getElementById("reviewCloseBtn");
+        const reviewBlurBtn = document.getElementById("reviewBlurBtn");
+        const reviewDoneBtn = document.getElementById("reviewDoneBtn");
+        let activeReviewKey = null;
+
+        function openReviewModal(targetId, storageKey) {
+            const card = cardsData[targetId - 1];
+            if (!card) return;
+            
+            activeReviewKey = storageKey;
+            reviewTitle.textContent = `🔍 快速複習：U${card.id}`;
+            reviewDivision.textContent = card.division;
+            reviewText.textContent = card.text;
+            reviewText.classList.remove("text-blurred");
+            reviewBlurBtn.textContent = "👁️ 遮蔽";
+            
+            reviewModal.style.display = "flex";
+        }
+        
+        if (reviewCloseBtn) {
+            reviewCloseBtn.addEventListener("click", () => {
+                reviewModal.style.display = "none";
+            });
+        }
+        
+        if (reviewBlurBtn) {
+            reviewBlurBtn.addEventListener("click", () => {
+                reviewText.classList.toggle("text-blurred");
+                reviewBlurBtn.textContent = reviewText.classList.contains("text-blurred") ? "👁️ 顯示" : "👁️ 遮蔽";
+            });
+        }
+        
+        if (reviewDoneBtn) {
+            reviewDoneBtn.addEventListener("click", () => {
+                if (activeReviewKey) {
+                    toggleReviewChecked(activeReviewKey);
+                }
+                reviewModal.style.display = "none";
+            });
+        }
+
+        function createReviewBtn(targetId, label, storageKey, tipTitle = "") {
+            const btn = document.createElement("button");
+            btn.className = "ebb-btn";
+            if (tipTitle) btn.title = tipTitle;
+            
+            const checked = isReviewChecked(storageKey);
+            if (checked) {
+                btn.classList.add("checked");
+                btn.innerHTML = `✓ ${label}`;
+            } else {
+                btn.innerHTML = `🔍 ${label}`;
+            }
+            
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openReviewModal(targetId, storageKey);
+            });
+            
+            return btn;
+        }
+
+        function updateEbbinghausPanel() {
+            const n = currentIndex + 1;
+            const shortTermItems = document.getElementById("shortTermItems");
+            const longTermItems = document.getElementById("longTermItems");
+            
+            if (!shortTermItems || !longTermItems) return;
+            
+            shortTermItems.innerHTML = "";
+            longTermItems.innerHTML = "";
+            
+            // 1. 新學精簡標籤: 5m, 30m, 12h
+            const shortIntervals = [
+                { label: "5m", title: "5分鐘複習自檢", key: "short_5m" },
+                { label: "30m", title: "30分鐘複習自檢", key: "short_30m" },
+                { label: "12h", title: "12小時複習自檢", key: "short_12h" }
+            ];
+            shortIntervals.forEach(item => {
+                const btn = createReviewBtn(n, item.label, item.key, item.title);
+                shortTermItems.appendChild(btn);
+            });
+            
+            // 2. 歷日溫習精簡標籤: 1d, 2d, 4d, 7d, 15d, 30d
+            if (n === 63) {
+                const btn = document.createElement("button");
+                btn.className = "ebb-btn";
+            if (tipTitle) btn.title = tipTitle;
+                btn.innerHTML = isReviewChecked("long_all") ? "✓ 總複習 U1-62" : "總複習 U1-62";
+                if (isReviewChecked("long_all")) btn.classList.add("checked");
+                btn.addEventListener("click", () => {
+                    alert("恭喜您即將完成全經背誦！今日功課為總複習第 1 至 62 卡。");
+                    toggleReviewChecked("long_all");
+                });
+                longTermItems.appendChild(btn);
+            } else {
+                const longIntervals = [
+                    { label: "1d", offset: 1, title: "1天前 (U" },
+                    { label: "2d", offset: 2, title: "2天前 (U" },
+                    { label: "4d", offset: 4, title: "4天前 (U" },
+                    { label: "7d", offset: 7, title: "7天前 (U" },
+                    { label: "15d", offset: 15, title: "15天前 (U" },
+                    { label: "30d", offset: 32, title: "1個月前 (U" }
+                ];
+                let count = 0;
+                longIntervals.forEach(inv => {
+                    const target = n - inv.offset;
+                    if (target >= 1) {
+                        const chipLabel = `${inv.label} · U${target}`;
+                        const chipTitle = `${inv.title}${target})`;
+                        const btn = createReviewBtn(target, chipLabel, `long_${inv.offset}`, chipTitle);
+                        longTermItems.appendChild(btn);
+                        count++;
+                    }
+                });
+                if (count === 0) {
+                    longTermItems.innerHTML = `<span style="font-size: 0.72rem; color: var(--text-muted); padding: 0.1rem 0.3rem;">新始</span>`;
+                }
+            }
+        }
+
+        
+        // --- 閱讀設定 (字級、字體) 邏輯 ---
+        const fontMap = {
+            kaiti: "'Kaiti TC', '楷體-繁', 'DFKai-SB', '標楷體', 'BiauKai', 'STKaiti', 'KaiTi', 'TW-Kai', serif",
+            serif: "'Noto Serif TC', 'Songti TC', '宋體-繁', 'PMingLiU', '新細明體', 'MingLiU', 'STSong', serif",
+            sans: "'Noto Sans TC', 'PingFang TC', '蘋方-繁', 'Microsoft JhengHei', '微軟正黑體', 'Heiti TC', sans-serif"
+        };
+        const sizeMap = {
+            small: "1.3rem",
+            medium: "1.55rem",
+            large: "1.85rem",
+            xlarge: "2.2rem"
+        };
+
+        let currentFont = safeStorage.getItem("diamondSutraFont") || "kaiti";
+        let currentSize = safeStorage.getItem("diamondSutraFontSize") || "medium";
+        let currentVoiceGender = safeStorage.getItem("diamondSutraTtsVoice") || "male";
+        let currentTtsRate = parseFloat(safeStorage.getItem("diamondSutraTtsRate") || "0.85");
+        let autoAdvanceTts = safeStorage.getItem("diamondSutraAutoAdvanceTts") === "true";
+        let currentLineHeight = safeStorage.getItem("diamondSutraLineHeight") || "1.7";
+        let showReviewStrip = safeStorage.getItem("diamondSutraShowReview") !== "false";
+        let navDirection = "fade";
+
+        function applyReaderSettings() {
+            const family = fontMap[currentFont] || fontMap.kaiti;
+            const size = sizeMap[currentSize] || sizeMap.medium;
+
+            document.documentElement.style.setProperty("--sutra-font-family", family);
+            document.documentElement.style.setProperty("--sutra-font-size", size);
+            document.documentElement.style.setProperty("--sutra-line-height", currentLineHeight);
+
+            const cardBody = document.getElementById("cardBody");
+            const cardBodyText = document.getElementById("cardBodyText");
+            const reviewText = document.getElementById("reviewText");
+
+            if (cardBody) {
+                cardBody.style.setProperty("font-family", family, "important");
+                cardBody.style.setProperty("font-size", size, "important");
+                cardBody.style.setProperty("line-height", currentLineHeight, "important");
+            }
+            if (cardBodyText) {
+                cardBodyText.style.setProperty("font-family", family, "important");
+                cardBodyText.style.setProperty("font-size", size, "important");
+                cardBodyText.style.setProperty("line-height", currentLineHeight, "important");
+            }
+            if (reviewText) {
+                reviewText.style.setProperty("font-family", family, "important");
+                reviewText.style.setProperty("line-height", currentLineHeight, "important");
+            }
+
+            // 溫故知新排程列開關
+            const reviewStrip = document.getElementById("reviewStrip");
+            if (reviewStrip) {
+                reviewStrip.style.display = showReviewStrip ? "flex" : "none";
+            }
+
+            // Sync settings modal buttons active state
+            document.querySelectorAll(".setting-pill-btn[data-font]").forEach(btn => {
+                btn.classList.toggle("active", btn.getAttribute("data-font") === currentFont);
+            });
+            document.querySelectorAll(".setting-pill-btn[data-size]").forEach(btn => {
+                btn.classList.toggle("active", btn.getAttribute("data-size") === currentSize);
+            });
+            document.querySelectorAll(".setting-pill-btn[data-lineheight]").forEach(btn => {
+                btn.classList.toggle("active", btn.getAttribute("data-lineheight") === currentLineHeight);
+            });
+            document.querySelectorAll(".setting-pill-btn[data-review]").forEach(btn => {
+                btn.classList.toggle("active", (btn.getAttribute("data-review") === "true") === showReviewStrip);
+            });
+            document.querySelectorAll(".setting-pill-btn[data-voice]").forEach(btn => {
+                btn.classList.toggle("active", btn.getAttribute("data-voice") === currentVoiceGender);
+            });
+            document.querySelectorAll(".setting-pill-btn[data-rate]").forEach(btn => {
+                btn.classList.toggle("active", parseFloat(btn.getAttribute("data-rate")) === currentTtsRate);
+            });
+        }
+
+        // Settings Modal DOM & Handlers
+        const settingsModal = document.getElementById("settingsModal");
+        const settingsBtn = document.getElementById("settingsBtn");
+        const settingsBtnBottom = document.getElementById("settingsBtnBottom");
+        const settingsCloseBtn = document.getElementById("settingsCloseBtn");
+        const settingsDoneBtn = document.getElementById("settingsDoneBtn");
+
+        function openSettings() {
+            applyReaderSettings();
+            settingsModal.style.display = "flex";
+        }
+        function closeSettings() {
+            settingsModal.style.display = "none";
+        }
+
+        if (settingsBtn) settingsBtn.addEventListener("click", openSettings);
+        if (settingsBtnBottom) settingsBtnBottom.addEventListener("click", openSettings);
+        if (settingsCloseBtn) settingsCloseBtn.addEventListener("click", closeSettings);
+        if (settingsDoneBtn) settingsDoneBtn.addEventListener("click", closeSettings);
+
+        document.querySelectorAll(".setting-pill-btn[data-font]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentFont = btn.getAttribute("data-font");
+                safeStorage.setItem("diamondSutraFont", currentFont);
+                applyReaderSettings();
+            });
+        });
+
+        document.querySelectorAll(".setting-pill-btn[data-size]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentSize = btn.getAttribute("data-size");
+                safeStorage.setItem("diamondSutraFontSize", currentSize);
+                applyReaderSettings();
+            });
+        });
+
+        document.querySelectorAll(".setting-pill-btn[data-lineheight]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentLineHeight = btn.getAttribute("data-lineheight");
+                safeStorage.setItem("diamondSutraLineHeight", currentLineHeight);
+                applyReaderSettings();
+            });
+        });
+
+        document.querySelectorAll(".setting-pill-btn[data-review]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                showReviewStrip = btn.getAttribute("data-review") === "true";
+                safeStorage.setItem("diamondSutraShowReview", showReviewStrip ? "true" : "false");
+                applyReaderSettings();
+            });
+        });
+
+        document.querySelectorAll(".setting-pill-btn[data-voice]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentVoiceGender = btn.getAttribute("data-voice");
+                safeStorage.setItem("diamondSutraTtsVoice", currentVoiceGender);
+                applyReaderSettings();
+                if (isSpeaking) {
+                    speakCurrentCard();
+                }
+            });
+        });
+
+        document.querySelectorAll(".setting-pill-btn[data-rate]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentTtsRate = parseFloat(btn.getAttribute("data-rate"));
+                safeStorage.setItem("diamondSutraTtsRate", currentTtsRate);
+                applyReaderSettings();
+                if (isSpeaking) {
+                    speakCurrentCard();
+                }
+            });
+        });
+
+        // Initialize Division Select options
+        function initDivisions() {
+            const divMap = new Map();
+            cardsData.forEach((card, idx) => {
+                if (!divMap.has(card.division)) {
+                    divMap.set(card.division, idx);
+                }
+            });
+            
+            divisionSelect.innerHTML = "";
+            divMap.forEach((firstCardIdx, divName) => {
+                const opt = document.createElement("option");
+                opt.value = firstCardIdx;
+                opt.textContent = divName;
+                divisionSelect.appendChild(opt);
+            });
+        }
+
+        // Update current card view
+        function renderCard() {
+            const card = cardsData[currentIndex];
+            
+            // Metadata
+            cardDivision.textContent = card.division;
+            cardNumber.textContent = `${card.id} / ${cardsData.length}`;
+            wordCount.textContent = `字數: ${card.length} 字`;
+            
+            // Apply text modes
+            if (currentMode === "blur") {
+                mainCard.classList.add("blur-active");
+                cardBodyText.innerHTML = renderClozeText(card.text, false);
+            } else if (currentMode === "cloze") {
+                mainCard.classList.remove("blur-active");
+                cardBodyText.innerHTML = renderClozeText(card.text, true);
+            } else {
+                mainCard.classList.remove("blur-active");
+                cardBodyText.innerHTML = card.text;
+            }
+            
+            // Memorized status
+            const isMemorized = memorizedSet.has(card.id);
+            statusCheckbox.checked = isMemorized;
+            if (isMemorized) {
+                mainCard.classList.add("memorized");
+                statusText.textContent = "已背誦";
+            } else {
+                mainCard.classList.remove("memorized");
+                statusText.textContent = "標記為已背誦";
+            }
+            
+            // Navigation buttons states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cardsData.length - 1;
+            
+            // Update Division select jumper
+            applyReaderSettings();
+            updateDivisionSelect();
+            
+            // 平滑柔順翻卡轉場（外框穩定不跳動，內文如行雲流水般滑入）
+            cardBody.classList.remove("slide-next", "slide-prev", "text-fade-in");
+            void cardBody.offsetWidth; // trigger reflow
+            if (navDirection === "next") {
+                cardBody.classList.add("slide-next");
+            } else if (navDirection === "prev") {
+                cardBody.classList.add("slide-prev");
+            } else {
+                cardBody.classList.add("text-fade-in");
+            }
+            navDirection = "fade";
+            
+            // Save index state
+            safeStorage.setItem("diamondSutraCurrentIndex", currentIndex);
+            updateEbbinghausPanel();
+        }
+
+        // Helper to format text with click-to-reveal for random words (cloze test)
+        function renderClozeText(text, enableCloze) {
+            if (!enableCloze) return text;
+            
+            // We want to hide some words. For classical Chinese, let's hide every 5th or 6th character
+            let result = "";
+            let counter = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                // Hide only Chinese characters (not punctuation)
+                if (/[一-龥]/.test(char)) {
+                    counter++;
+                    if (counter % 5 === 0) {
+                        result += `<span class="hidden-word" onclick="this.classList.toggle('revealed')">${char}</span>`;
+                    } else {
+                        result += char;
+                    }
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        // Jumper selector sync
+        function updateDivisionSelect() {
+            const currentCard = cardsData[currentIndex];
+            for (let opt of divisionSelect.options) {
+                if (opt.textContent === currentCard.division) {
+                    divisionSelect.value = opt.value;
+                    break;
+                }
+            }
+        }
+
+        // Dashboard/progress update
+        function updateProgress() {
+            const total = cardsData.length;
+            const count = memorizedSet.size;
+            const pct = Math.round((count / total) * 100);
+            
+            totalCards.textContent = total;
+            memorizedCount.textContent = count;
+            progressPct.textContent = `${pct}%`;
+            progressBar.style.width = `${pct}%`;
+            
+            safeStorage.setItem("diamondSutraMemorized", JSON.stringify(Array.from(memorizedSet)));
+        }
+
+        // Actions handlers
+        function toggleMemorized() {
+            const card = cardsData[currentIndex];
+            if (memorizedSet.has(card.id)) {
+                memorizedSet.delete(card.id);
+            } else {
+                memorizedSet.add(card.id);
+                // Play soft bell on marking as memorized
+                playZenBell();
+            }
+            updateProgress();
+            renderCard();
+        }
+
+        function nextCard() {
+            navDirection = "next";
+            if (isSpeaking && !autoAdvanceTts) stopSpeaking();
+            if (currentIndex < cardsData.length - 1) {
+                currentIndex++;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            navDirection = "prev";
+            if (isSpeaking) stopSpeaking();
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function toggleBlur() {
+            if (currentMode === "blur") {
+                currentMode = "normal";
+                blurBtn.classList.remove("active");
+            } else {
+                currentMode = "blur";
+                blurBtn.classList.add("active");
+                clozeBtn.classList.remove("active");
+            }
+            renderCard();
+        }
+
+        function toggleCloze() {
+            if (currentMode === "cloze") {
+                currentMode = "normal";
+                clozeBtn.classList.remove("active");
+            } else {
+                currentMode = "cloze";
+                clozeBtn.classList.add("active");
+                blurBtn.classList.remove("active");
+            }
+            renderCard();
+        }
+
+        // --- 同步功能邏輯 ---
+        function getSyncUrl() {
+            // 使用 HTTPS 協定，避免手機瀏覽器阻擋
+            const baseUrl = 'https://prajna-recitation-tally.surge.sh';
+            const progressArr = Array.from(memorizedSet);
+            if (progressArr.length === 0) return baseUrl;
+            return `${baseUrl}#sync=${progressArr.join(",")}`;
+        }
+        
+        function getSyncCode() {
+            return Array.from(memorizedSet).join(",");
+        }
+        
+        function updateSyncInfo() {
+            const syncUrl = getSyncUrl();
+            const syncCode = getSyncCode();
+            
+            syncLinkInput.value = syncUrl;
+            mySyncCodeInput.value = syncCode || "無背誦進度";
+            
+            // 使用穩定免費的 QR Code API
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(syncUrl)}`;
+            qrCodeImg.src = qrApiUrl;
+        }
+
+        // Tab 切換
+        syncTabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                syncTabBtns.forEach(b => b.classList.remove("active"));
+                syncTabContents.forEach(c => c.classList.remove("active"));
+                
+                btn.classList.add("active");
+                const targetTab = btn.getAttribute("data-tab");
+                document.getElementById(targetTab).classList.add("active");
+            });
+        });
+
+        // 複製按鈕
+        if (copyLinkBtn) copyLinkBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(syncLinkInput.value).then(() => {
+                copyLinkToast.style.display = "block";
+                setTimeout(() => { copyLinkToast.style.display = "none"; }, 3000);
+            });
+        });
+        
+        if (copyCodeBtn) copyCodeBtn.addEventListener("click", () => {
+            if (mySyncCodeInput.value !== "無背誦進度") {
+                navigator.clipboard.writeText(mySyncCodeInput.value).then(() => {
+                    copyCodeToast.style.display = "block";
+                    setTimeout(() => { copyCodeToast.style.display = "none"; }, 3000);
+                });
+            }
+        });
+
+        // 匯入與合併
+        if (importCodeBtn) importCodeBtn.addEventListener("click", () => {
+            const codeStr = importCodeInput.value.trim();
+            if (!codeStr) return;
+            
+            try {
+                const ids = codeStr.split(",").map(x => parseInt(x)).filter(x => !isNaN(x));
+                if (ids.length > 0) {
+                    ids.forEach(id => memorizedSet.add(id));
+                    updateProgress();
+                    renderCard();
+                    playZenBell();
+                    
+                    importSuccessToast.style.display = "block";
+                    importCodeInput.value = "";
+                    updateSyncInfo();
+                    setTimeout(() => { importSuccessToast.style.display = "none"; }, 3000);
+                } else {
+                    alert("同步碼格式無效。");
+                }
+            } catch (e) {
+                alert("匯入失敗：" + e.message);
+            }
+        });
+
+        // URL Hash 同步偵測
+        let pendingSyncIds = [];
+        function checkUrlSync() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith("#sync=")) {
+                const syncStr = hash.replace("#sync=", "");
+                if (syncStr) {
+                    try {
+                        pendingSyncIds = syncStr.split(",").map(x => parseInt(x)).filter(x => !isNaN(x) && x >= 1 && x <= cardsData.length);
+                        if (pendingSyncIds.length > 0) {
+                            // 顯示自訂合併確認卡片
+                            syncPromptText.textContent = `偵測到來自其他裝置的 ${pendingSyncIds.length} 個背誦進度，是否與此裝置合併？`;
+                            syncPromptOverlay.style.display = "flex";
+                        }
+                    } catch (e) {
+                        console.error("解析同步資料失敗:", e);
+                    }
+                }
+                // 清除 hash 保持網址乾淨
+                history.replaceState(null, document.title, window.location.pathname + window.location.search);
+            }
+        }
+        
+        if (syncMergeBtn) syncMergeBtn.addEventListener("click", () => {
+            pendingSyncIds.forEach(id => memorizedSet.add(id));
+            updateProgress();
+            renderCard();
+            playZenBell();
+            syncPromptOverlay.style.display = "none";
+            pendingSyncIds = [];
+        });
+        
+        if (syncCancelBtn) syncCancelBtn.addEventListener("click", () => {
+            syncPromptOverlay.style.display = "none";
+            pendingSyncIds = [];
+        });
+
+        // Event Listeners
+        prevBtn.addEventListener("click", prevCard);
+        nextBtn.addEventListener("click", nextCard);
+        
+        statusCheckbox.addEventListener("change", toggleMemorized);
+        
+        blurBtn.addEventListener("click", toggleBlur);
+        clozeBtn.addEventListener("click", toggleCloze);
+        
+        if (syncBtn) syncBtn.addEventListener("click", () => {
+            updateSyncInfo();
+            syncModal.style.display = "flex";
+        });
+        
+        if (syncCloseBtn) syncCloseBtn.addEventListener("click", () => {
+            syncModal.style.display = "none";
+            copyLinkToast.style.display = "none";
+            copyCodeToast.style.display = "none";
+            importSuccessToast.style.display = "none";
+        });
+        
+        blurOverlay.addEventListener("click", () => {
+            currentMode = "normal";
+            blurBtn.classList.remove("active");
+            renderCard();
+        });
+        
+        divisionSelect.addEventListener("change", (e) => {
+            currentIndex = parseInt(e.target.value);
+            renderCard();
+        });
+
+        // Theme Switcher
+        let activeTheme = safeStorage.getItem("diamondSutraTheme") || "dark";
+        document.documentElement.setAttribute("data-theme", activeTheme);
+        updateThemeToggleIcon();
+
+        themeToggle.addEventListener("click", () => {
+            activeTheme = activeTheme === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", activeTheme);
+            safeStorage.setItem("diamondSutraTheme", activeTheme);
+            updateThemeToggleIcon();
+        });
+
+        function updateThemeToggleIcon() {
+            if (activeTheme === "dark") {
+                themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+            } else {
+                themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+            }
+        }
+
+        // Keyboard Shortcuts Handler
+        window.addEventListener("keydown", (e) => {
+            // Ignore if user typing in a text field
+            if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") {
+                return;
+            }
+            
+            switch (e.key) {
+                                case "p":
+                case "P":
+                    toggleSpeaking();
+                    e.preventDefault();
+                    break;
+                case "ArrowLeft":
+                    prevCard();
+                    e.preventDefault();
+                    break;
+                case "ArrowRight":
+                    nextCard();
+                    e.preventDefault();
+                    break;
+                case " ":
+                    toggleBlur();
+                    e.preventDefault();
+                    break;
+                case "m":
+                case "M":
+                    toggleMemorized();
+                    e.preventDefault();
+                    break;
+                case "c":
+                case "C":
+                    toggleCloze();
+                    e.preventDefault();
+                    break;
+                }
+        });
+
+        
+        // --- 手勢滑動翻卡（向左滑：下一卡；向右滑：上一卡） ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        const swipeArea = document.querySelector(".card-perspective") || document.getElementById("mainCard");
+        if (swipeArea) {
+            swipeArea.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].clientX;
+                touchStartY = e.changedTouches[0].clientY;
+            }, { passive: true });
+
+            swipeArea.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].clientX;
+                touchEndY = e.changedTouches[0].clientY;
+                handleCardSwipe();
+            }, { passive: true });
+        }
+
+        function handleCardSwipe() {
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            
+            // 水平滑動超過 40px，且水平滑動位移明顯大於垂直位移（不阻礙上下滾動）
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+                if (diffX < 0) {
+                    // 向左滑：下一卡
+                    nextCard();
+                } else {
+                    // 向右滑：上一卡
+                    prevCard();
+                }
+            }
+        }
+
+        
+        const ttsBtn = document.getElementById("ttsBtn");
+        const autoAdvanceTtsCheckbox = document.getElementById("autoAdvanceTtsCheckbox");
+        const testVoiceBtn = document.getElementById("testVoiceBtn");
+        let isSpeaking = false;
+        let ttsTimer = null;
+        let audioPlayToken = 0;
+        let toastTimeout = null;
+
+        // 全域原生音訊元件（HTML5 Audio 支援 iOS / Android 螢幕休眠與鎖定畫面背景播放）
+        const sutraAudio = new Audio();
+        sutraAudio.id = "sutraAudio";
+        sutraAudio.preload = "auto";
+
+        if (autoAdvanceTtsCheckbox) {
+            autoAdvanceTtsCheckbox.checked = autoAdvanceTts;
+            autoAdvanceTtsCheckbox.addEventListener("change", (e) => {
+                autoAdvanceTts = e.target.checked;
+                safeStorage.setItem("diamondSutraAutoAdvanceTts", autoAdvanceTts ? "true" : "false");
+            });
+        }
+
+        function showTtsToast(msg, duration = 3500) {
+            let toast = document.getElementById("ttsToast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "ttsToast";
+                toast.style.position = "fixed";
+                toast.style.bottom = "24px";
+                toast.style.left = "50%";
+                toast.style.transform = "translateX(-50%)";
+                toast.style.background = "rgba(20, 24, 28, 0.94)";
+                toast.style.color = "#f4f1ea";
+                toast.style.padding = "0.55rem 1.1rem";
+                toast.style.borderRadius = "24px";
+                toast.style.boxShadow = "0 8px 24px rgba(0,0,0,0.45)";
+                toast.style.border = "1px solid var(--accent-gold)";
+                toast.style.fontSize = "0.82rem";
+                toast.style.zIndex = "9999";
+                toast.style.backdropFilter = "blur(10px)";
+                toast.style.transition = "opacity 0.3s ease";
+                toast.style.pointerEvents = "none";
+                toast.style.textAlign = "center";
+                toast.style.maxWidth = "90vw";
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.opacity = "1";
+            toast.style.display = "block";
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                if (toast) toast.style.opacity = "0";
+            }, duration);
+        }
+
+        function hideTtsToast() {
+            const toast = document.getElementById("ttsToast");
+            if (toast) toast.style.opacity = "0";
+        }
+
+        function unlockMobileAudio() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    const ctx = new AudioContext();
+                    if (ctx.state === "suspended") ctx.resume();
+                    const src = ctx.createBufferSource();
+                    src.buffer = ctx.createBuffer(1, 1, 22050);
+                    src.connect(ctx.destination);
+                    src.start(0);
+                }
+            } catch(e) {}
+        }
+
+        // 註冊手機鎖定螢幕與下拉通知控制 (MediaSession API)
+        function updateMediaSession(card, isPlaying) {
+            if (!('mediaSession' in navigator)) return;
+            try {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: `${card.division} (${card.id}/${cardsData.length})`,
+                    artist: currentVoiceGender === 'male' ? '金剛經誦念 · 男聲 (雲揚大師 · 莊嚴深沉)' : '金剛經誦念 · 女聲 (曉臻導師 · 柔和清淨)',
+                    album: '金剛般若波羅蜜經',
+                    artwork: [
+                        { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+                        { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+                navigator.mediaSession.playbackState = isPlaying ? "playing" : "paused";
+
+                navigator.mediaSession.setActionHandler('play', () => {
+                    if (sutraAudio.src) {
+                        sutraAudio.play().catch(() => {});
+                        isSpeaking = true;
+                        updateTtsBtnUI(true);
+                    } else {
+                        speakCurrentCard();
+                    }
+                });
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    stopSpeaking();
+                });
+                navigator.mediaSession.setActionHandler('previoustrack', () => {
+                    if (currentIndex > 0) {
+                        prevCard();
+                        speakCurrentCard();
+                    }
+                });
+                navigator.mediaSession.setActionHandler('nexttrack', () => {
+                    if (currentIndex < cardsData.length - 1) {
+                        nextCard();
+                        speakCurrentCard();
+                    }
+                });
+            } catch (e) {
+                console.warn("MediaSession API warning:", e);
+            }
+        }
+
+        function stopSpeaking() {
+            if (ttsTimer) {
+                clearTimeout(ttsTimer);
+                ttsTimer = null;
+            }
+            try {
+                sutraAudio.pause();
+                sutraAudio.currentTime = 0;
+            } catch (e) {}
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+            } catch (e) {}
+            isSpeaking = false;
+            window._activeSutraUtterance = null;
+            updateTtsBtnUI(false);
+            hideTtsToast();
+            if ('mediaSession' in navigator) {
+                try { navigator.mediaSession.playbackState = "none"; } catch(e) {}
+            }
+        }
+
+        // Web Speech API 備援方案 (離線或音訊載入受阻時)
+        function speakWithSpeechSynthesis(card) {
+            if (!('speechSynthesis' in window)) return;
+            try {
+                const speakText = card.text
+                    .replace(/[「」『』《》〈〉]/g, ' ')
+                    .replace(/（[^）]*）/g, '')
+                    .replace(/\([^\)]*\)/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                const utterance = new SpeechSynthesisUtterance(speakText);
+                window._activeSutraUtterance = utterance;
+
+                const voices = window.speechSynthesis.getVoices() || [];
+                const twVoices = voices.filter(v => v.lang === "zh-TW" || v.lang === "cmn-Hant-TW" || v.lang === "zh-HK" || v.lang.includes("TW"));
+                const zhAllVoices = voices.filter(v => v.lang.startsWith("zh") || v.lang.startsWith("cmn"));
+                const pool = twVoices.length > 0 ? twVoices : (zhAllVoices.length > 0 ? zhAllVoices : voices);
+
+                if (currentVoiceGender === "male") {
+                    const maleKws = ["male", "man", "男", "zhiwei", "yunxi", "sinji", "sin-ji", "kangkang", "danny", "yunjian", "yunyang"];
+                    const match = pool.find(v => maleKws.some(kw => v.name.toLowerCase().includes(kw))) ||
+                                  zhAllVoices.find(v => maleKws.some(kw => v.name.toLowerCase().includes(kw)));
+                    if (match) utterance.voice = match;
+                    utterance.pitch = 0.75;
+                } else {
+                    const femaleKws = ["female", "woman", "女", "meijia", "mei-jia", "tingting", "ting-ting", "yating", "hanhan", "xiaoxiao", "yuna", "hsiao-chen", "hsiaochen", "hsiaoyu"];
+                    const match = pool.find(v => femaleKws.some(kw => v.name.toLowerCase().includes(kw))) ||
+                                  zhAllVoices.find(v => femaleKws.some(kw => v.name.toLowerCase().includes(kw)));
+                    if (match) utterance.voice = match;
+                    utterance.pitch = 1.15;
+                }
+
+                utterance.rate = currentTtsRate;
+                utterance.onstart = () => {
+                    isSpeaking = true;
+                    updateTtsBtnUI(true);
+                    showTtsToast("🔊 念誦中 (本機備援語音)...", 3000);
+                };
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    window._activeSutraUtterance = null;
+                    updateTtsBtnUI(false);
+                    hideTtsToast();
+                    if (autoAdvanceTts && currentIndex < cardsData.length - 1) {
+                        ttsTimer = setTimeout(() => {
+                            if (autoAdvanceTts) {
+                                nextCard();
+                                speakCurrentCard();
+                            }
+                        }, 1200);
+                    }
+                };
+                utterance.onerror = () => {
+                    isSpeaking = false;
+                    window._activeSutraUtterance = null;
+                    updateTtsBtnUI(false);
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.error("Fallback TTS error:", e);
+            }
+        }
+
+        // 核心念誦函式（高品質神經原聲，支援關閉畫面/鎖屏背景念誦）
+        function speakCurrentCard() {
+            unlockMobileAudio();
+            stopSpeaking();
+
+            const thisToken = ++audioPlayToken;
+            const card = cardsData[currentIndex];
+            if (!card) return;
+
+            const audioUrl = `audio/${currentVoiceGender}/${card.id}.mp3`;
+            sutraAudio.src = audioUrl;
+            sutraAudio.playbackRate = currentTtsRate;
+
+            const playPromise = sutraAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    if (thisToken !== audioPlayToken) return;
+                    isSpeaking = true;
+                    updateTtsBtnUI(true);
+                    updateMediaSession(card, true);
+                    const voiceTitle = currentVoiceGender === 'male' ? '男聲 (雲揚大師)' : '女聲 (曉臻導師)';
+                    showTtsToast(`🔊 念誦中：${card.division} · ${voiceTitle} (支援關閉畫面/鎖屏背景念誦)`, 4000);
+                }).catch((err) => {
+                    console.warn("Audio file play warning, fallback to Web Speech:", err);
+                    speakWithSpeechSynthesis(card);
+                });
+            }
+
+            sutraAudio.onended = () => {
+                if (thisToken !== audioPlayToken) return;
+                isSpeaking = false;
+                updateTtsBtnUI(false);
+                hideTtsToast();
+                if ('mediaSession' in navigator) {
+                    try { navigator.mediaSession.playbackState = "none"; } catch(e) {}
+                }
+                if (autoAdvanceTts && currentIndex < cardsData.length - 1) {
+                    ttsTimer = setTimeout(() => {
+                        if (autoAdvanceTts) {
+                            nextCard();
+                            speakCurrentCard();
+                        }
+                    }, 1000);
+                }
+            };
+
+            sutraAudio.onerror = () => {
+                speakWithSpeechSynthesis(card);
+            };
+        }
+
+        function toggleSpeaking() {
+            if (isSpeaking) {
+                stopSpeaking();
+            } else {
+                speakCurrentCard();
+            }
+        }
+
+        function updateTtsBtnUI(speaking) {
+            if (!ttsBtn) return;
+            if (speaking) {
+                ttsBtn.classList.add("active");
+                ttsBtn.innerHTML = "⏹️ 停止";
+                ttsBtn.title = "點擊停止念誦";
+            } else {
+                ttsBtn.classList.remove("active");
+                ttsBtn.innerHTML = "🔊 念誦";
+                ttsBtn.title = "點擊開始念誦經文";
+            }
+        }
+
+        if (ttsBtn) {
+            ttsBtn.addEventListener("click", toggleSpeaking);
+        }
+
+        // 試聽按鈕邏輯（試聽真實錄音品質神經原聲）
+        if (testVoiceBtn) {
+            testVoiceBtn.addEventListener("click", () => {
+                unlockMobileAudio();
+                stopSpeaking();
+
+                const audioUrl = `audio/${currentVoiceGender}/1.mp3`;
+                sutraAudio.src = audioUrl;
+                sutraAudio.playbackRate = currentTtsRate;
+
+                sutraAudio.play().then(() => {
+                    isSpeaking = true;
+                    updateTtsBtnUI(true);
+                    const name = currentVoiceGender === 'male' ? '男聲 (雲揚大師 · 莊嚴深沉)' : '女聲 (曉臻導師 · 柔和清淨)';
+                    showTtsToast(`🔊 試聽中：${name}`, 4000);
+                    setTimeout(() => {
+                        if (isSpeaking && sutraAudio.src.includes('1.mp3')) {
+                            stopSpeaking();
+                        }
+                    }, 6500);
+                }).catch(() => {
+                    const utt = new SpeechSynthesisUtterance("如是我聞。一時，佛在舍衛國、祇樹給孤獨園。");
+                    window._activeSutraUtterance = utt;
+                    utt.rate = currentTtsRate;
+                    utt.pitch = (currentVoiceGender === 'male') ? 0.75 : 1.15;
+                    window.speechSynthesis.speak(utt);
+                });
+            });
+        }
+
+        // Initialization
+        initDivisions();
+        applyReaderSettings();
+        updateProgress();
+        renderCard();
+        checkUrlSync();
+</script>
+</body>
+</html>
